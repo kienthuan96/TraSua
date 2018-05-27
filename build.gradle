@@ -8,6 +8,9 @@ buildscript {
         maven {
             url 'https://dl.bintray.com/roman-voronoy/maven/'
         }
+        maven {
+            url 'https://dl.bintray.com/spark/maven'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.2'
