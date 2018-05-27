@@ -28,6 +28,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:12.0.0'
     implementation 'com.google.firebase:firebase-database:12.0.0'
+    implementation 'com.google.firebase:firebase-auth:12.0.0'
     implementation 'pro.appus:zoom-splash:1.0.0'
     implementation 'me.spark:submitbutton:1.0.1'
 }
