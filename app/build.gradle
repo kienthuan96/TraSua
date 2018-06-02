@@ -32,5 +32,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:12.0.0'
     implementation 'pro.appus:zoom-splash:1.0.0'
     implementation 'me.spark:submitbutton:1.0.1'
+    implementation 'com.valdesekamdem.library:md-toast:0.9.0'
+    implementation 'com.wrapp.floatlabelededittext:library:0.0.6'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -145,6 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
                             user = mAuth.getCurrentUser();
                             UserProfileChangeRequest userProfileChangeRequest= new UserProfileChangeRequest.Builder().setPhotoUri(uriU).setDisplayName(fullNameU).build();
                             user.updateProfile(userProfileChangeRequest);
+                            Toast.makeText(RegisterActivity.this,"Success",Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(RegisterActivity.this,"Fail",Toast.LENGTH_SHORT).show();
@@ -185,10 +186,10 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(RegisterActivity.this,"Please choose avatar",Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (edtPassword.getText().toString().equals(edtRePassword.getText().toString())){
-            Toast.makeText(RegisterActivity.this,"Password not right",Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        if (edtPassword.getText().toString().equals(edtRePassword.getText().toString())){
+//            Toast.makeText(RegisterActivity.this,"Password not right",Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
         if (edtPassword.getText().toString().length() < 6 ){
             Toast.makeText(RegisterActivity.this,"Password not length " ,Toast.LENGTH_SHORT).show();
             return false;
