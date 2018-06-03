@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.thuan.thuctap.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,7 +61,7 @@ public class AdminActivity extends AppCompatActivity {
                 startActivity(intentLogOut);
                 return true;
             case R.id.menuPost:
-                Intent intentPost=new Intent(AdminActivity.this,PostActivity.class);
+                Intent intentPost=new Intent(AdminActivity.this,PostStoreActivity.class);
                 startActivity(intentPost);
                 return true;
             default:

@@ -27,7 +27,7 @@
             android:name=".Activity.RegisterActivity"
             android:theme="@style/AppThemeNoActionBar" />
         <activity android:name=".Activity.AdminActivity" />
-        <activity android:name=".Activity.PostActivity"></activity>
+        <activity android:name=".Activity.PostStoreActivity"></activity>
     </application>
 
 </manifest>
