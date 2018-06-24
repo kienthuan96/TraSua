@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/txtNameStore_postStore"
+            android:id="@+id/edtNameStore_postStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ten Quan Tra Sua" />
@@ -25,7 +25,7 @@
         android:layout_marginTop="68dp">
 
         <EditText
-            android:id="@+id/txtAddressStore_postStore"
+            android:id="@+id/edtAddressStore_postStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Dia chi Quan Tra Sua" />
@@ -39,13 +39,15 @@
         android:layout_marginTop="138dp">
 
         <EditText
-            android:id="@+id/txtNumberPhoneStore_postStore"
+            android:inputType="number"
+            android:id="@+id/edtNumberPhoneStore_postStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="So dien thoai Quan Tra Sua" />
     </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
     <ImageView
+        android:id="@+id/imgStore"
         android:layout_width="129dp"
         android:layout_height="101dp"
         android:layout_alignParentBottom="true"

@@ -1,10 +1,12 @@
 package com.example.thuan.thuctap.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.spark.submitbutton.SubmitButton;
 
 public class LoginActivity extends AppCompatActivity {
@@ -22,20 +23,76 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edtPassword;
     private SubmitButton btnSubmit;
     private TextView txtRegister;
+    private CheckBox chkSaveInfo;
 
     private FirebaseAuth mAuth;
     private String account,password;
+    private String prefName="my_data";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth=FirebaseAuth.getInstance();
         getId();
-        checkLogin();
+//        checkLogin();
 
         getEvent();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        savingPreferences();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        restoringPreferences();
+    }
+
+    public void savingPreferences()
+    {
+        //tạo đối tượng getSharedPreferences
+        SharedPreferences pre=getSharedPreferences
+                (prefName, MODE_PRIVATE);
+        //tạo đối tượng Editor để lưu thay đổi
+        SharedPreferences.Editor editor=pre.edit();
+        boolean bchk=chkSaveInfo.isChecked();
+        if(!bchk)
+        {
+            //xóa mọi lưu trữ trước đó
+            editor.clear();
+        }
+        else
+        {
+            //lưu vào editor
+            editor.putString("account", account);
+            editor.putString("password", password);
+            editor.putBoolean("checked", bchk);
+        }
+        //chấp nhận lưu xuống file
+        editor.commit();
+    }
+    /**
+     * hàm đọc trạng thái đã lưu trước đó
+     */
+    public void restoringPreferences()
+    {
+        SharedPreferences pre=getSharedPreferences
+                (prefName,MODE_PRIVATE);
+        //lấy giá trị checked ra, nếu không thấy thì giá trị mặc định là false
+        boolean bchk=pre.getBoolean("checked", false);
+        if(bchk)
+        {
+            //lấy user, pwd, nếu không thấy giá trị mặc định là rỗng
+            String user=pre.getString("account", "");
+            String pwd=pre.getString("password", "");
+            edtAccount.setText(user);
+            edtPassword.setText(pwd);
+        }
+        chkSaveInfo.setChecked(bchk);
+    }
     /**
      * kiem tra da dang nhap user chua
      */
@@ -52,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         edtPassword=findViewById(R.id.edtPassword_login);
         btnSubmit=findViewById(R.id.btnSubmit_login);
         txtRegister=findViewById(R.id.txtRegister_login);
+        chkSaveInfo=findViewById(R.id.chkSaveInfo_login);
     }
     private void getData(){
         account=edtAccount.getText().toString();

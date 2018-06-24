@@ -61,6 +61,13 @@
             android:inputType="textPassword"
             />
 
+        <CheckBox
+            android:id="@+id/chkSaveInfo_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtPassword_login"
+            android:text="Lưu thông tin" />
+
         <com.spark.submitbutton.SubmitButton
             android:id="@+id/btnSubmit_login"
             android:layout_width="match_parent"
