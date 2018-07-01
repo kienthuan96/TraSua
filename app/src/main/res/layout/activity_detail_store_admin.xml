@@ -27,16 +27,22 @@
         android:layout_width="match_parent"
         android:layout_height="403dp"></ListView>
     <LinearLayout
-
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/btnDeleteStore_detailAdmin"
             android:text="Xoa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
+            android:id="@+id/btnEditStore_detailAdmin"
             android:text="Sua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnAddMilkTea_detailAdmin"
+            android:text="Them Menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

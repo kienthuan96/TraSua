@@ -2,16 +2,14 @@ package com.example.thuan.thuctap.Activity;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -62,7 +60,6 @@ public class PostStoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_store);
         getId();
-//        getDataFromXml();
         event();
     }
 
@@ -109,7 +106,7 @@ public class PostStoreActivity extends AppCompatActivity {
         edtNameStore=findViewById(R.id.edtNameStore_postStore);
         edtAddressStore=findViewById(R.id.edtAddressStore_postStore);
         edtNumberStore=findViewById(R.id.edtNumberPhoneStore_postStore);
-        imgStore=findViewById(R.id.imgStore);
+        imgStore=findViewById(R.id.imgStore_postStore);
     }
 
     private void getDataFromXml(){
@@ -149,6 +146,7 @@ public class PostStoreActivity extends AppCompatActivity {
         });
         return ten;
     }
+
 
     private void saveData(){
         getDataFromXml();

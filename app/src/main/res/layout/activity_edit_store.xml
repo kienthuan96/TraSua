@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.PostStoreActivity">
+    tools:context=".Activity.EditStoreActivity">
 
     <com.wrapp.floatlabelededittext.FloatLabeledEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/edtNameStore_postStore"
+            android:id="@+id/edtNameStore_editStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ten Quan Tra Sua" />
@@ -25,7 +25,7 @@
         android:layout_marginTop="68dp">
 
         <EditText
-            android:id="@+id/edtAddressStore_postStore"
+            android:id="@+id/edtAddressStore_editStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Dia chi Quan Tra Sua" />
@@ -40,14 +40,14 @@
 
         <EditText
             android:inputType="number"
-            android:id="@+id/edtNumberPhoneStore_postStore"
+            android:id="@+id/edtNumberPhoneStore_editStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="So dien thoai Quan Tra Sua" />
     </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
     <ImageView
-        android:id="@+id/imgStore_postStore"
+        android:id="@+id/imgStore_editStore"
         android:layout_width="129dp"
         android:layout_height="101dp"
         android:layout_alignParentBottom="true"
@@ -55,5 +55,15 @@
         android:layout_marginBottom="163dp"
         android:layout_marginStart="106dp"
         android:src="@drawable/ic_store_black_24dp" />
+
+    <Button
+        android:id="@+id/btnSave_editStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="67dp"
+        android:layout_marginStart="127dp"
+        android:text="Save" />
 
 </RelativeLayout>

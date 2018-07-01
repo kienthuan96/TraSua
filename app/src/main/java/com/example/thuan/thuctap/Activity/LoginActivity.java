@@ -2,6 +2,7 @@ package com.example.thuan.thuctap.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.spark.submitbutton.SubmitButton;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText edtAccount;
@@ -24,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private SubmitButton btnSubmit;
     private TextView txtRegister;
     private CheckBox chkSaveInfo;
+    private MDToast mdToast;
 
     private FirebaseAuth mAuth;
     private String account,password;
@@ -98,7 +101,12 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void checkLogin(){
         if (mAuth!=null){
+//            mdToast = MDToast.makeText(LoginActivity.this, "Name "+mAuth.getCurrentUser().getEmail(), 5000, MDToast.TYPE_ERROR);
+//            mdToast.show();
             transAdmin();
+        }else{
+            mdToast = MDToast.makeText(LoginActivity.this, "null ", 5000, MDToast.TYPE_WARNING);
+            mdToast.show();
         }
     }
     /**
@@ -130,9 +138,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getData();
-                signIn(account,password);
+                if (checkError()){
+                    signIn(account,password);
+                }
             }
         });
+    }
+
+    private boolean checkError(){
+        if (account.length() == 0){
+            mdToast = MDToast.makeText(LoginActivity.this, "Nhap thong tin account ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
+            return false;
+        }
+        if (password.length() == 0){
+            mdToast = MDToast.makeText(LoginActivity.this, "Nhap thong tin password ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -168,4 +192,17 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
     }
+    private class BackgroundLogin extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+    }
 }
+

@@ -10,6 +10,7 @@
         android:weightSum="3">
 
         <ImageView
+            android:id="@+id/imgStore_admin"
             android:src="@drawable/ic_store_black_24dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
