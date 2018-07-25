@@ -1,5 +1,6 @@
-package com.example.thuan.thuctap.Activity;
+package com.example.thuan.thuctap.Activity.Login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -7,16 +8,26 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.thuan.thuctap.Activity.Admin.AdminActivity;
+import com.example.thuan.thuctap.Activity.Shipper.ShipperActivity;
+import com.example.thuan.thuctap.Activity.UserActivity;
+import com.example.thuan.thuctap.Model.User;
 import com.example.thuan.thuctap.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.hanks.library.AnimateCheckBox;
 import com.spark.submitbutton.SubmitButton;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
@@ -25,10 +36,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edtPassword;
     private SubmitButton btnSubmit;
     private TextView txtRegister;
-    private CheckBox chkSaveInfo;
+    private AnimateCheckBox chkSaveInfo;
     private MDToast mdToast;
+    private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
     private String account,password;
     private String prefName="my_data";
     @Override
@@ -36,10 +50,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth=FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("user");
         getId();
 //        checkLogin();
 
         getEvent();
+
     }
 
     @Override
@@ -139,7 +156,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 getData();
                 if (checkError()){
-                    signIn(account,password);
+//                    signIn(account,password);
+                    new BackgroundLogin().execute();
                 }
             }
         });
@@ -175,6 +193,16 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void transUser(){
+        Intent intent=new Intent(LoginActivity.this, UserActivity.class);
+        startActivity(intent);
+    }
+
+    private void transShipper(){
+        Intent intent=new Intent(LoginActivity.this, ShipperActivity.class);
+        startActivity(intent);
+    }
+
     private void signIn(String email,String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -182,7 +210,26 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            transAdmin();
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            myRef.child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    User user = dataSnapshot.getValue(User.class);
+                                    if (user.getStatus().equals("User")) {
+                                        transUser();
+                                    }
+                                    if (user.getStatus().equals("Admin")) {
+                                        transAdmin();
+                                    }
+                                    if (user.getStatus().equals("Shipper")) {
+                                        transShipper();
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
@@ -190,18 +237,27 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-
     }
+
     private class BackgroundLogin extends AsyncTask<Void, Void, Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
+            signIn(account,password);
             return null;
         }
-
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            progressDialog.cancel();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog=new ProgressDialog(LoginActivity.this);
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
         }
     }
 }

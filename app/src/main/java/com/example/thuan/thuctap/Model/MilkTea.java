@@ -8,6 +8,8 @@ public class MilkTea {
     private String price;
     private Date dateUp;
     private String imageMilkTea;
+    private String idStore;
+    private String status;
 
     public MilkTea() {
     }

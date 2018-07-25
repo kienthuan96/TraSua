@@ -1,18 +1,21 @@
-package com.example.thuan.thuctap.Activity;
+package com.example.thuan.thuctap.Activity.Login;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.thuan.thuctap.Model.User;
 import com.example.thuan.thuctap.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,9 +23,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText edtAccount;
@@ -32,18 +39,22 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText edtPhone;
     private ImageView imgAvatar;
     private Button btnRegister;
+    private Spinner spnStatus;
     private InputStream inputStream;
     private Uri uri;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference myRef;
 
     private int PICK_IMAGE = 1;
     private String account;
     private String password;
     private String rePassword;
     private String fullName;
+    private String status;
     private String phone;
-
+    private List<String> arrStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,45 +85,67 @@ public class RegisterActivity extends AppCompatActivity {
      * lay id
      */
     private void getId(){
-        edtAccount=findViewById(R.id.edtAccount_register);
-        edtPassword=findViewById(R.id.edtPassword_register);
-        edtRePassword=findViewById(R.id.edtRePassword_register);
-        edtFullName=findViewById(R.id.edtFullName_register);
-        edtPhone=findViewById(R.id.edtPhone_register);
-        imgAvatar=findViewById(R.id.imgAvatar_register);
-        btnRegister=findViewById(R.id.btnRegister);
+        edtAccount = findViewById(R.id.edtAccount_register);
+        edtPassword = findViewById(R.id.edtPassword_register);
+        edtRePassword = findViewById(R.id.edtRePassword_register);
+        edtFullName = findViewById(R.id.edtFullName_register);
+        edtPhone = findViewById(R.id.edtPhone_register);
+        imgAvatar = findViewById(R.id.imgAvatar_register);
+        btnRegister = findViewById(R.id.btnRegister);
+        spnStatus = findViewById(R.id.spnStatusUser_register);
     }
 
     /**
      * lay du lieu tu xml
      */
     private void getData(){
-        account=edtAccount.getText().toString();
-        password=edtPassword.getText().toString();
-        rePassword=edtRePassword.getText().toString();
-        fullName=edtFullName.getText().toString();
-        phone=edtPhone.getText().toString();
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference("user");
+        account = edtAccount.getText().toString();
+        password = edtPassword.getText().toString();
+        rePassword = edtRePassword.getText().toString();
+        fullName = edtFullName.getText().toString();
+        phone = edtPhone.getText().toString();
+
+        arrStatus = new ArrayList<>();
+        arrStatus.add("User");
+        arrStatus.add("Admin");
+        arrStatus.add("Shipper");
+        ArrayAdapter<String> adapterStatus = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrStatus);
+        spnStatus.setDropDownHorizontalOffset(android.R.layout.simple_list_item_single_choice);
+        spnStatus.setAdapter(adapterStatus);
     }
 
     /**
      * bat su kien
      */
     private void getEvent(){
+        getData();
         imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 transGallery();
             }
         });
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkError()){
-                    getData();
-                    createUser(account,password,fullName,uri);
+                    createUser(edtAccount.getText().toString(),edtPassword.getText().toString(),edtFullName.getText().toString(),uri,status);
                 }
 
+            }
+        });
+
+        spnStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                status = arrStatus.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                status = arrStatus.get(0);
             }
         });
     }
@@ -135,7 +168,7 @@ public class RegisterActivity extends AppCompatActivity {
      * @param uriU
      * tao tai khoan tren firebase
      */
-    private void createUser(String accountU, String passwordU, final String fullNameU, final Uri uriU){
+    private void createUser(String accountU, String passwordU, final String fullNameU, final Uri uriU, final String status){
         mAuth.createUserWithEmailAndPassword(accountU, passwordU)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -145,13 +178,13 @@ public class RegisterActivity extends AppCompatActivity {
                             user = mAuth.getCurrentUser();
                             UserProfileChangeRequest userProfileChangeRequest= new UserProfileChangeRequest.Builder().setPhotoUri(uriU).setDisplayName(fullNameU).build();
                             user.updateProfile(userProfileChangeRequest);
+                            User mUser=new User(user.getUid(),fullNameU,0,status);
+                            myRef.child(mUser.getIdUser()).setValue(mUser);
                             Toast.makeText(RegisterActivity.this,"Success",Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(RegisterActivity.this,"Fail",Toast.LENGTH_SHORT).show();
                         }
-
-                        // ...
                     }
                 });
     }

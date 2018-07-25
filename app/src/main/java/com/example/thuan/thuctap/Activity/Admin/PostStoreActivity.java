@@ -1,4 +1,4 @@
-package com.example.thuan.thuctap.Activity;
+package com.example.thuan.thuctap.Activity.Admin;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -77,6 +77,7 @@ public class PostStoreActivity extends AppCompatActivity {
             case R.id.menuSaveStore:
                 Intent intentAdmin=new Intent(PostStoreActivity.this,AdminActivity.class);
                 saveData();
+                finish();
                 startActivity(intentAdmin);
                 return true;
             default:

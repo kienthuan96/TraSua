@@ -1,11 +1,10 @@
-package com.example.thuan.thuctap.Activity;
+package com.example.thuan.thuctap.Activity.Admin;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,7 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.thuan.thuctap.Adapter.AdminAdapter;
+import com.example.thuan.thuctap.Activity.Login.LoginActivity;
+import com.example.thuan.thuctap.Adapter.Admin.AdminAdapter;
 import com.example.thuan.thuctap.Model.Store;
 import com.example.thuan.thuctap.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -99,7 +99,7 @@ public class AdminActivity extends AppCompatActivity {
     private void getData(){
         mAuth= FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
-        nameUser=mUser.getDisplayName();
+//        nameUser=mUser.getDisplayName();
         idUser=mUser.getUid();
         readDatạ();
     }
@@ -120,10 +120,9 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Store store=dataSnapshot.getValue(Store.class);
-                Log.d("Hotel name ",store.getNameStore()+"");
-                Log.d("Hotel address ",store.getAddress());
-                arrStore.add(store);
-                Log.d("list",arrStore.size()+"");
+                if (store.getIdUser().equals(idUser)){
+                    arrStore.add(store);
+                }
                 adminAdapter.notifyDataSetChanged();
             }
 

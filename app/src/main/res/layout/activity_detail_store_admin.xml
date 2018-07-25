@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.DetailStoreAdminActivity">
+    tools:context=".Activity.Admin.DetailStoreAdminActivity">
 
     <TextView
         android:hint="Ten cua hang"

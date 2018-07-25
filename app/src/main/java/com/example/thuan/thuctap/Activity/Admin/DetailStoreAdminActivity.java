@@ -1,17 +1,16 @@
-package com.example.thuan.thuctap.Activity;
+package com.example.thuan.thuctap.Activity.Admin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thuan.thuctap.Model.Store;
-import com.example.thuan.thuctap.PostMilkTeaActivity;
 import com.example.thuan.thuctap.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +27,7 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
     private TextView txtAddressDetailStore;
     private TextView txtNumberPhoneDetailStore;
     private Button btnDeleteStore,btnEditStore, btnAddMilkTea;
+    private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -43,6 +43,7 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_store_admin);
         getId();
+        getData();
         setData();
         getEvent();
     }
@@ -57,7 +58,6 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
     }
 
     private void setData(){
-        getData();
         txtNameDetailStore.setText(store.getNameStore());
         txtAddressDetailStore.setText(store.getAddress());
         txtNumberPhoneDetailStore.setText(store.getNumberPhone());
@@ -86,7 +86,6 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
                 txtNameDetailStore.setText(store.getNameStore());
                 txtAddressDetailStore.setText(store.getAddress());
                 txtNumberPhoneDetailStore.setText(store.getNumberPhone());
-                Log.d("load","load");
             }
 
             @Override
@@ -132,7 +131,7 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
         btnAddMilkTea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(DetailStoreAdminActivity.this, PostMilkTeaActivity.class);
+                Intent intent=new Intent(DetailStoreAdminActivity.this, MilkTeaActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putString("idStore",idStore);
                 intent.putExtra("admin",bundle);
@@ -140,5 +139,6 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }

@@ -2,8 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostMilkTeaActivity">
+    tools:context=".Activity.Admin.PostMilkTeaActivity">
 
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtNameMilkTea_postMilkTea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ten  Tra Sua" />
+    </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:inputType="number"
+            android:id="@+id/edtPriceMilkTea_postMilkTea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Gia Tra Sua" />
+    </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtDescribeMilkTea_postMilkTea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Miêu tả" />
+    </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+    <ImageView
+        android:id="@+id/imgMilkTea_postMilkTea"
+        android:layout_width="129dp"
+        android:layout_height="101dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="163dp"
+        android:layout_marginStart="106dp"
+        android:src="@drawable/ic_store_black_24dp" />
 </LinearLayout>

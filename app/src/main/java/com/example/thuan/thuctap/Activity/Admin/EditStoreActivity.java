@@ -1,4 +1,4 @@
-package com.example.thuan.thuctap.Activity;
+package com.example.thuan.thuctap.Activity.Admin;
 
 import android.content.Intent;
 import android.net.Uri;

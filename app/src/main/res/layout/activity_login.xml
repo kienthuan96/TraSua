@@ -2,9 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#81C784"
+    android:padding="5px"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.LoginActivity">
+    tools:context=".Activity.Login.LoginActivity">
 
     <RelativeLayout
         android:layout_width="374dp"
@@ -15,44 +17,33 @@
         android:layout_marginTop="107dp">
         <!-- Email Label -->
 
-        <TextView
-            android:textColor="#121111"
-            android:layout_marginLeft="5dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Account:"
-            android:layout_marginTop="40dp"
-            android:textSize="25sp"/>
 
         <EditText
+            android:textColorHint="@color/white"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/ic_account_circle_white_24dp"
             android:singleLine="true"
             android:gravity="center"
             android:layout_marginLeft="5dp"
             android:textSize="23sp"
             android:hint="Input your account ..."
-            android:textColor="#212121"
+            android:textColor="#FFFFFF"
             android:id="@+id/edtAccount_login"
             android:layout_marginTop="90dp"
             android:padding="5dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_marginLeft="5dp"
-            android:textColor="#131313"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Password:"
-            android:layout_marginTop="140dp"
-            android:textSize="25sp"/>
-
         <EditText
+            android:textColorHint="@color/white"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
             android:singleLine="true"
             android:gravity="center"
             android:layout_marginLeft="5dp"
             android:textSize="23sp"
             android:hint="Input your password"
-            android:textColor="#212121"
+            android:textColor="#FFF"
             android:id="@+id/edtPassword_login"
             android:layout_marginTop="180dp"
             android:padding="9dp"
@@ -61,12 +52,31 @@
             android:inputType="textPassword"
             />
 
-        <CheckBox
+        <com.hanks.library.AnimateCheckBox
             android:id="@+id/chkSaveInfo_login"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="122dp"
+            android:padding="15dp"
+            app:animDuration="200"
+            app:checkedColor="#fff"
+            app:lineColor="#81C784"
+            app:lineWidth="1.2dp"
+            app:unCheckColor="#448AFF" />
+
+        <TextView
+            android:textColor="#FFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/edtPassword_login"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="138dp"
+            android:layout_marginStart="41dp"
             android:text="Lưu thông tin" />
+
+
 
         <com.spark.submitbutton.SubmitButton
             android:id="@+id/btnSubmit_login"
@@ -76,25 +86,25 @@
             android:layout_centerHorizontal="true"
             android:text="Login"
             android:textStyle="bold"
-            android:textColor="@color/gray"
-            app:sub_btn_background="#FFFF00"
+            android:textColor="#81C784"
+            app:sub_btn_background="#FFFF"
             app:sub_btn_duration="900"
-            app:sub_btn_line_color="#0277BD"
-            app:sub_btn_ripple_color="#0277BD"
-            app:sub_btn_tick_color="#FFFF00" />
-
+            app:sub_btn_line_color="#FFB74D"
+            app:sub_btn_ripple_color="#FFB74D"
+            app:sub_btn_tick_color="#FFFF" />
 
         <TextView
-            android:textColor="#0d0d0d"
-            android:layout_gravity="center"
             android:id="@+id/txtRegister_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="340dp"
-            android:layout_marginBottom="24dp"
-            android:text="No account yet? Create one"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="11dp"
             android:gravity="center"
-            android:textSize="16dip"/>
+            android:text="No account yet? Create one"
+            android:textColor="#FFFF"
+            android:textSize="16dip" />
     </RelativeLayout>
 
 </RelativeLayout>

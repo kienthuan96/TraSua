@@ -1,4 +1,4 @@
-package com.example.thuan.thuctap.Adapter;
+package com.example.thuan.thuctap.Adapter.Admin;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

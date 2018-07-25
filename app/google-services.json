@@ -1,31 +1,27 @@
 {
   "project_info": {
-    "project_number": "353171210246",
-    "firebase_url": "https://thuctap-63887.firebaseio.com",
-    "project_id": "thuctap-63887",
-    "storage_bucket": "thuctap-63887.appspot.com"
+    "project_number": "492185928586",
+    "firebase_url": "https://trasua-299f2.firebaseio.com",
+    "project_id": "trasua-299f2",
+    "storage_bucket": "trasua-299f2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:353171210246:android:a27cba3a72f904dc",
+        "mobilesdk_app_id": "1:492185928586:android:f5f9411e68d66396",
         "android_client_info": {
           "package_name": "com.example.thuan.thuctap"
         }
       },
       "oauth_client": [
         {
-          "client_id": "353171210246-6ks4ugtqadomj9e43cq4e5chtkfo0ve7.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "353171210246-6ks4ugtqadomj9e43cq4e5chtkfo0ve7.apps.googleusercontent.com",
+          "client_id": "492185928586-hvpl18mivt5akjbhsjkjm0h3s3vfg0cm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCCiWGUOAefkab7wnDKuEuY8pcwjNbGTD4"
+          "current_key": "AIzaSyDTjHZ0TXQ4pImDBGh-5ky_fuGsz2g5ayk"
         }
       ],
       "services": {

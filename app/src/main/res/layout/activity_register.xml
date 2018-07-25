@@ -1,100 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:float="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#81C784"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.RegisterActivity">
+    tools:context=".Activity.Login.RegisterActivity">
 
     <TextView
         android:layout_marginTop="2dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#080808"
+        android:textColor="#fff"
         android:gravity="center"
         android:textSize="40sp"
         android:text="Register Account"/>
 
     <ImageView
-        android:src="@drawable/ic_person_black_24dp"
-        android:layout_gravity="center"
         android:id="@+id/imgAvatar_register"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        />
-    <EditText
-        android:id="@+id/edtAccount_register"
-        android:layout_width="fill_parent"
+        android:layout_gravity="center"
+        android:layout_marginEnd="68dp"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/ic_person_black_24dp" />
+
+    <Spinner
+        android:id="@+id/spnStatusUser_register"
+        android:layout_width="143dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="160dp"
-        android:gravity="center"
-        android:hint="Input your account"
-        android:padding="5dp"
-        android:singleLine="true"
-        android:textColor="#212121"
-        android:textSize="23sp" />
-    <EditText
-        android:id="@+id/edtPassword_register"
-        android:layout_width="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="71dp" />
+
+    <LinearLayout
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="200dp"
-        android:gravity="center"
-        android:hint="Input your password"
-        android:inputType="textPassword"
-        android:padding="5dp"
-        android:singleLine="true"
-        android:textColor="#212121"
-        android:textSize="23sp" />
-    <EditText
-        android:id="@+id/edtRePassword_register"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="240dp"
-        android:gravity="center"
-        android:hint="Input your password"
-        android:inputType="textPassword"
-        android:padding="5dp"
-        android:singleLine="true"
-        android:textColor="#212121"
-        android:textSize="23sp" />
-    <EditText
-        android:inputType="text"
-        android:singleLine="true"
-        android:gravity="center"
-        android:id="@+id/edtFullName_register"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="280dp"
-        android:hint="Input your Full Name"
-        android:padding="5dp"
-        android:textColor="#212121"
-        android:textSize="23sp" />
-    <EditText
-        android:inputType="number"
-        android:singleLine="true"
-        android:gravity="center"
-        android:id="@+id/edtPhone_register"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="320dp"
-        android:hint="Input your Phone"
-        android:padding="5dp"
-        android:textColor="#212121"
-        android:textSize="23sp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="112dp"
+        android:orientation="vertical">
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edtAccount_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input your account"
+                android:singleLine="true"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edtFullName_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input your name"
+                android:singleLine="true"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edtPassword_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input your password"
+                android:singleLine="true"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edtRePassword_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input your password "
+                android:singleLine="true"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:fontFamily="@font/cucho_bold"
+                android:id="@+id/edtPhone_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số điện thoại "
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+    </LinearLayout>
+
+
     <android.support.v7.widget.AppCompatButton
+        android:fontFamily="@font/cucho_bold"
+        android:background="#E3F2FD"
         android:id="@+id/btnRegister"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginTop="360dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="43dp"
         android:padding="10dp"
         android:text="Register"
         android:textSize="22sp" />

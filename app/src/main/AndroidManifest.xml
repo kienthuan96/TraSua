@@ -16,7 +16,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.SplashActivity" />
-        <activity android:name=".Activity.LoginActivity">
+        <activity
+            android:name=".Activity.Login.LoginActivity"
+            android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,14 +26,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.RegisterActivity"
+            android:name=".Activity.Login.RegisterActivity"
             android:theme="@style/AppThemeNoActionBar" />
-        <activity android:name=".Activity.AdminActivity" />
-        <activity android:name=".Activity.PostStoreActivity" />
-        <activity android:name=".Activity.DetailStoreAdminActivity" />
-        <activity android:name=".Activity.EditStoreActivity" />
-        <activity android:name=".PostMilkTeaActivity" />
-        <activity android:name=".FirstDisplayActivity"></activity>
+        <activity android:name=".Activity.Admin.AdminActivity" />
+        <activity android:name=".Activity.Admin.PostStoreActivity" />
+        <activity android:name=".Activity.Admin.DetailStoreAdminActivity" />
+        <activity android:name=".Activity.Admin.EditStoreActivity" />
+        <activity android:name=".Activity.Admin.PostMilkTeaActivity" />
+        <activity android:name=".FirstDisplayActivity" />
+        <activity android:name=".Activity.Admin.MilkTeaActivity" />
+        <activity android:name=".Activity.UserActivity" />
+        <activity android:name=".Activity.Shipper.ShipperActivity"></activity>
     </application>
 
 </manifest>
