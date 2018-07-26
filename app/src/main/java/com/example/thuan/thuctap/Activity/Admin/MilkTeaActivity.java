@@ -5,11 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.thuan.thuctap.R;
 
 public class MilkTeaActivity extends AppCompatActivity {
-    Button btnAdd;
+    private Button btnAdd;
     private String idStore;
 
     @Override
@@ -41,6 +42,9 @@ public class MilkTeaActivity extends AppCompatActivity {
     private void getData(){
         Intent intent=getIntent();
         Bundle bundle=intent.getBundleExtra("admin");
-        idStore=bundle.getString("idStore");
+        if (bundle != null) {
+            idStore = bundle.getString("idStore");
+        }
+        Toast.makeText(this, ""+idStore, Toast.LENGTH_SHORT).show();
     }
 }

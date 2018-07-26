@@ -178,18 +178,19 @@ public class PostMilkTeaActivity extends AppCompatActivity {
         milkTea.setImageMilkTea(uploadIMG(uri));
         milkTea.setDescription(descriptionMilTea);
         milkTea.setStatus("Ready"); //Ready, Sell, End
-        Toast.makeText(this, ""+milkTea.getIdStore()+milkTea.getNameMilkTea(), Toast.LENGTH_SHORT).show();
-//        myRef.child("milkTea").child(idMilkTea).setValue(milkTea)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(PostMilkTeaActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(PostMilkTeaActivity.this, "That bai", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+//        Toast.makeText(this, ""+milkTea.getIdStore()+milkTea.getNameMilkTea(), Toast.LENGTH_SHORT).show();
+//        milkTea = new MilkTea(idMilkTea, "-LIH3cTWzrEphv25Y22W", idUser, "Chanh", "5000", "2018", "hinh", "het", "ngon");
+        myRef.child("milkTea").child(idMilkTea).setValue(milkTea)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(PostMilkTeaActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(PostMilkTeaActivity.this, "That bai", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
