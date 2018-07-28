@@ -47,7 +47,7 @@ public class AdminAdapter extends ArrayAdapter<Store> {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         StorageReference pathReference = storageRef.child("IMG_CONTACT/"+store.getImageStore());
-        Glide.with(context).using(new FirebaseImageLoader()).load(pathReference).into(imgStore);
+//        Glide.with(context).using(new FirebaseImageLoader()).load(pathReference).into(imgStore);
 
         return convertView;
     }

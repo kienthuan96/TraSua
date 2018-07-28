@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.thuan.thuctap.Activity.Admin.AdminActivity;
 import com.example.thuan.thuctap.Activity.Shipper.ShipperActivity;
-import com.example.thuan.thuctap.Activity.UserActivity;
+import com.example.thuan.thuctap.Activity.User.UserActivity;
 import com.example.thuan.thuctap.Model.User;
 import com.example.thuan.thuctap.R;
 import com.google.android.gms.tasks.OnCompleteListener;

@@ -97,10 +97,10 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void getData(){
-        mAuth= FirebaseAuth.getInstance();
-        mUser=mAuth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
 //        nameUser=mUser.getDisplayName();
-        idUser=mUser.getUid();
+        idUser = mUser.getUid();
         readDatạ();
     }
     private void setData(){
