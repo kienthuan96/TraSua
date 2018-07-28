@@ -90,7 +90,7 @@ public class EditStoreActivity extends AppCompatActivity {
                 edtNumberStore.setText(store.getNumberPhone());
 
                 StorageReference pathReference = storageRef.child("IMG_CONTACT/"+store.getImageStore());
-                Glide.with(EditStoreActivity.this).using(new FirebaseImageLoader()).load(pathReference).into(imgStore);
+//                Glide.with(EditStoreActivity.this).using(new FirebaseImageLoader()).load(pathReference).into(imgStore);
             }
 
             @Override

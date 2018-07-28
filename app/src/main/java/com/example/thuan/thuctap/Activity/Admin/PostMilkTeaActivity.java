@@ -178,8 +178,6 @@ public class PostMilkTeaActivity extends AppCompatActivity {
         milkTea.setImageMilkTea(uploadIMG(uri));
         milkTea.setDescription(descriptionMilTea);
         milkTea.setStatus("Ready"); //Ready, Sell, End
-//        Toast.makeText(this, ""+milkTea.getIdStore()+milkTea.getNameMilkTea(), Toast.LENGTH_SHORT).show();
-//        milkTea = new MilkTea(idMilkTea, "-LIH3cTWzrEphv25Y22W", idUser, "Chanh", "5000", "2018", "hinh", "het", "ngon");
         myRef.child("milkTea").child(idMilkTea).setValue(milkTea)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

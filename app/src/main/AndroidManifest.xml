@@ -35,8 +35,10 @@
         <activity android:name=".Activity.Admin.PostMilkTeaActivity" />
         <activity android:name=".FirstDisplayActivity" />
         <activity android:name=".Activity.Admin.MilkTeaActivity" />
-        <activity android:name=".Activity.UserActivity" />
-        <activity android:name=".Activity.Shipper.ShipperActivity"></activity>
+        <activity android:name=".Activity.User.UserActivity" />
+        <activity android:name=".Activity.Shipper.ShipperActivity" />
+        <activity android:name=".Activity.User.DetailMilkTeaActivity" />
+        <activity android:name=".Activity.User.OrderActivity"></activity>
     </application>
 
 </manifest>
