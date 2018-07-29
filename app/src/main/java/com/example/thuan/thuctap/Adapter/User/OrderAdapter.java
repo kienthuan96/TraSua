@@ -3,18 +3,23 @@ package com.example.thuan.thuctap.Adapter.User;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.thuan.thuctap.Model.DetailOrder;
 import com.example.thuan.thuctap.Model.MilkTea;
 import com.example.thuan.thuctap.Model.Order;
 import com.example.thuan.thuctap.Model.Store;
 import com.example.thuan.thuctap.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +32,7 @@ import java.util.ArrayList;
 
 public class OrderAdapter extends ArrayAdapter<DetailOrder>{
     private FirebaseDatabase mDatabase;
-    private DatabaseReference myRefMilkTea, myRefStore;
+    private DatabaseReference myRefMilkTea, myRefStore, myRefDetailOrder;
 
     private String idStore;
     private Context context;
@@ -53,13 +58,14 @@ public class OrderAdapter extends ArrayAdapter<DetailOrder>{
         TextView txtPrice = convertView.findViewById(R.id.txtPriceMilkTea_detailOrder);
         TextView txtAmount = convertView.findViewById(R.id.txtAmount_detailOrder);
         ImageView imgMilkTea = convertView.findViewById(R.id.imgMilkTea_user);
-
-        DetailOrder detailOrder = arrayList.get(position);
+        Button btnDelete = convertView.findViewById(R.id.btnDeleteDetail_detailOrder);
+        final DetailOrder detailOrder = arrayList.get(position);
 
         txtAmount.setText(detailOrder.getAmount().toString());
         txtPrice.setText(String.valueOf(detailOrder.getAmount() * detailOrder.getPriceMilkTea()));
 
         mDatabase = FirebaseDatabase.getInstance();
+        myRefDetailOrder = mDatabase.getReference("detailOrder");
         myRefStore = mDatabase.getReference("store");
         myRefMilkTea = mDatabase.getReference("milkTea");
         myRefMilkTea.child(detailOrder.getIdMilkTea()).addValueEventListener(new ValueEventListener() {
@@ -88,8 +94,26 @@ public class OrderAdapter extends ArrayAdapter<DetailOrder>{
             }
         });
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myRefDetailOrder.child(detailOrder.getId()).removeValue()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(context, "Sucess", Toast.LENGTH_SHORT).show();
+                                notifyDataSetChanged();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(context, "Fail", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-
+            }
+        });
         return convertView;
     }
 }

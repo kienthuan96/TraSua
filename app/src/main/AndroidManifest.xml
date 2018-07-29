@@ -38,7 +38,9 @@
         <activity android:name=".Activity.User.UserActivity" />
         <activity android:name=".Activity.Shipper.ShipperActivity" />
         <activity android:name=".Activity.User.DetailMilkTeaActivity" />
-        <activity android:name=".Activity.User.OrderActivity"></activity>
+        <activity android:name=".Activity.User.OrderActivity" />
+        <activity android:name=".Activity.Shipper.DetailOrderActivity" />
+        <activity android:name=".Activity.Shipper.HistoryRegisterOrderActivity"></activity>
     </application>
 
 </manifest>
