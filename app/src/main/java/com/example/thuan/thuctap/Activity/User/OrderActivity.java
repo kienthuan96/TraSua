@@ -92,12 +92,12 @@ public class OrderActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                orderAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                orderAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -121,10 +121,12 @@ public class OrderActivity extends AppCompatActivity {
                 order.setId(myRefOrder.push().getKey());
                 order.setArrayList(arrayList);
                 order.setIdUser(idUser);
+                order.setIdShipper("");
                 order.setAddressOrder(edtAddressOrder.getText().toString());
                 order.setDateOrder(getDateTime());
                 order.setPriceOrder(priceOrder());
                 order.setPointOrder(pointOrder());
+                order.setStatus("Ready"); //Ready Proccess Done
                 myRefOrder.child(order.getId()).setValue(order)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

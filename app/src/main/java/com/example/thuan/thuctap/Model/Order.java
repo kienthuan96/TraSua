@@ -5,23 +5,43 @@ import java.util.ArrayList;
 public class Order {
     private String id;
     private String idUser;
+    private String idShipper;
     private ArrayList<DetailOrder> arrayList;
     private String addressOrder;
     private Integer pointOrder;
     private String dateOrder;
     private Long priceOrder;
+    private String status;
 
     public Order() {
     }
 
-    public Order(String id, String idUser, ArrayList<DetailOrder> arrayList, String addressOrder, Integer pointOrder, String dateOrder, Long priceOrder) {
+    public Order(String id, String idUser, String idShipper, ArrayList<DetailOrder> arrayList, String addressOrder, Integer pointOrder, String dateOrder, Long priceOrder, String status) {
         this.id = id;
         this.idUser = idUser;
+        this.idShipper = idShipper;
         this.arrayList = arrayList;
         this.addressOrder = addressOrder;
         this.pointOrder = pointOrder;
         this.dateOrder = dateOrder;
         this.priceOrder = priceOrder;
+        this.status = status;
+    }
+
+    public String getIdShipper() {
+        return idShipper;
+    }
+
+    public void setIdShipper(String idShipper) {
+        this.idShipper = idShipper;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getPriceOrder() {

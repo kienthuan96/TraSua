@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,27 +8,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/txtNameMilkTea_detailOrder"
-            android:text="Ten Tra sua"
+            android:id="@+id/txtNameUser_historyRegisterOrder"
+            android:text="Ten khach hang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/txtNameStore_detailOrder"
-            android:text="Ten Quan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/txtAmount_detailOrder"
-            android:text="So luong"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <TextView
-            android:id="@+id/txtPriceMilkTea_detailOrder"
+            android:id="@+id/txtPriceOrder_historyRegisterOrder"
             android:text="Gia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtAddressOrder_historyRegisterOrder"
+            android:text="Dia chi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtDateOrder_historyRegisterOrder"
+            android:text="Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <Button
-            android:id="@+id/btnDeleteDetail_detailOrder"
+            android:id="@+id/btnDeleteOrder_historyRegisterOrder"
             android:text="Xoa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
