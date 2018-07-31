@@ -50,13 +50,14 @@ public class HistoryRegisterOrderAdapter extends ArrayAdapter<Order>{
         TextView txtAddressOrder = convertView.findViewById(R.id.txtAddressOrder_historyRegisterOrder);
         TextView txtPriceOrder = convertView.findViewById(R.id.txtPriceOrder_historyRegisterOrder);
         TextView txtDateOrder = convertView.findViewById(R.id.txtDateOrder_historyRegisterOrder);
+        TextView txtStatusOrder = convertView.findViewById(R.id.txtStatusOrder_historyRegisterOrder);
         Button btnDeleteOrder = convertView.findViewById(R.id.btnDeleteOrder_historyRegisterOrder);
         final Order order = arrayList.get(position);
 
         txtAddressOrder.setText(order.getAddressOrder());
         txtPriceOrder.setText(order.getPriceOrder().toString());
         txtDateOrder.setText(order.getDateOrder().toString());
-
+        txtStatusOrder.setText(order.getStatus());
 
         mDatabase = FirebaseDatabase.getInstance();
         myRefOrder = mDatabase.getReference("order");

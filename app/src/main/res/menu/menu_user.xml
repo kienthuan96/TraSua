@@ -14,4 +14,10 @@
         android:id="@+id/menuOrder"
         ></item>
 
+    <item
+        android:title="Lich Su Order"
+        app:showAsAction="ifRoom"
+        android:id="@+id/menuHistoryOrder"
+        ></item>
+
 </menu>

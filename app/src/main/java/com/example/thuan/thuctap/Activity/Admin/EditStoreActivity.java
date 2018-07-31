@@ -78,13 +78,13 @@ public class EditStoreActivity extends AppCompatActivity {
     }
 
     private void readData(){
-        store=new Store();
-        mDatabase=FirebaseDatabase.getInstance();
-        myRef=mDatabase.getReference("store");
+        store = new Store();
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference("store");
         myRef.child(idStore).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                store=dataSnapshot.getValue(Store.class);
+                store = dataSnapshot.getValue(Store.class);
                 edtNameStore.setText(store.getNameStore());
                 edtAddressStore.setText(store.getAddress());
                 edtNumberStore.setText(store.getNumberPhone());
@@ -120,9 +120,9 @@ public class EditStoreActivity extends AppCompatActivity {
     }
 
     private void saveEdit(){
-        final String nameEdit=edtNameStore.getText().toString();
-        final String addressEdit=edtAddressStore.getText().toString();
-        final String numberEdit=edtNumberStore.getText().toString();
+        final String nameEdit = edtNameStore.getText().toString();
+        final String addressEdit = edtAddressStore.getText().toString();
+        final String numberEdit = edtNumberStore.getText().toString();
 
         myRef.child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

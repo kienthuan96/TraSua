@@ -1,13 +1,20 @@
 package com.example.thuan.thuctap.Activity.Shipper;
 
+import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.thuan.thuctap.Adapter.Shipper.HistoryRegisterOrderAdapter;
 import com.example.thuan.thuctap.Model.Order;
+import com.example.thuan.thuctap.Model.User;
 import com.example.thuan.thuctap.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -24,11 +32,16 @@ public class HistoryRegisterOrderActivity extends AppCompatActivity {
     private HistoryRegisterOrderAdapter adapter;
     private ArrayList<Order> arrayList;
     private String idUser;
+    private String idOrder;
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private FirebaseDatabase mDatabase;
-    private DatabaseReference myRefOrder;
+    private DatabaseReference myRefOrder, myRefUser;
+    private Dialog dialog;
+    private Button btnCodeOrder;
+    private EditText edtCodeOrder;
+    private Integer number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +49,7 @@ public class HistoryRegisterOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history_register_order);
         getId();
         getData();
+        event();
     }
 
     private void getId() {
@@ -52,6 +66,7 @@ public class HistoryRegisterOrderActivity extends AppCompatActivity {
         idUser = mUser.getUid();
         mDatabase = FirebaseDatabase.getInstance();
         myRefOrder = mDatabase.getReference("order");
+        myRefUser = mDatabase.getReference("user");
         myRefOrder.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -83,5 +98,58 @@ public class HistoryRegisterOrderActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void event() {
+        dialog = new Dialog(HistoryRegisterOrderActivity.this);
+        dialog.setContentView(R.layout.layout_codeorder);
+        dialog.setTitle("Nhap ma");
+        btnCodeOrder = dialog.findViewById(R.id.btnCodeOrder);
+        edtCodeOrder = dialog.findViewById(R.id.edtCodeOrder);
+
+        btnCodeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (idOrder.equals(edtCodeOrder.getText().toString())) {
+                    dialog.cancel();
+                    myRefOrder.child(idOrder).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            dataSnapshot.getRef().child("status").setValue("Done");
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    myRefUser.child(arrayList.get(number).getIdUser()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+                            dataSnapshot.getRef().child("point").setValue(user.getPoint() + arrayList.get(number).getPointOrder());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+        lstHistoryRegisterOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                idOrder = arrayList.get(i).getId();
+                number = i;
+                if (arrayList.get(i).getStatus().equals("Proccess")) {
+                    dialog.show();
+                }
+            }
+        });
+
     }
 }

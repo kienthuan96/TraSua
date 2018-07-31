@@ -160,8 +160,8 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                Toast.makeText(AdminActivity.this, ""+arrStore.get(i).getNameStore(), Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(AdminActivity.this, DetailStoreAdminActivity.class);
-                Bundle bundle=new Bundle();
+                Intent intent = new Intent(AdminActivity.this, DetailStoreAdminActivity.class);
+                Bundle bundle = new Bundle();
                 bundle.putString("idStore",arrStore.get(i).getId());
                 intent.putExtra("admin",bundle);
                 startActivity(intent);
