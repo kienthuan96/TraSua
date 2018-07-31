@@ -80,9 +80,12 @@ public class PostMilkTeaActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menuSaveStore:
-                Intent intentAdmin=new Intent(PostMilkTeaActivity.this,MilkTeaActivity.class);
+                Intent intentAdmin = new Intent(PostMilkTeaActivity.this,DetailStoreAdminActivity.class);
                 saveData();
                 finish();
+                Bundle bundle = new Bundle();
+                bundle.putString("idStore",idStore);
+                intentAdmin.putExtra("admin",bundle);
                 startActivity(intentAdmin);
                 return true;
             default:

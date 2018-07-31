@@ -40,7 +40,8 @@
         <activity android:name=".Activity.User.DetailMilkTeaActivity" />
         <activity android:name=".Activity.User.OrderActivity" />
         <activity android:name=".Activity.Shipper.DetailOrderActivity" />
-        <activity android:name=".Activity.Shipper.HistoryRegisterOrderActivity"></activity>
+        <activity android:name=".Activity.Shipper.HistoryRegisterOrderActivity" />
+        <activity android:name=".Activity.User.HistoryOrderActivity"></activity>
     </application>
 
 </manifest>

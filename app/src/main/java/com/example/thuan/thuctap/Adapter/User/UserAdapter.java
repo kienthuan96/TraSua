@@ -1,6 +1,7 @@
 package com.example.thuan.thuctap.Adapter.User;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.example.thuan.thuctap.Model.MilkTea;
 import com.example.thuan.thuctap.Model.Store;
 import com.example.thuan.thuctap.R;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,7 +54,7 @@ public class UserAdapter extends ArrayAdapter<MilkTea> {
         TextView txtPriceMilkTea = convertView.findViewById(R.id.txtPriceMilkTea_user);
         TextView txtStatusMilkTea = convertView.findViewById(R.id.txtStatusMilkTea_user);
         final TextView txtNameStoreMilkTea = convertView.findViewById(R.id.txtStoreMilkTea_user);
-        ImageView imgMilkTea = convertView.findViewById(R.id.imgMilkTea_user);
+        final ImageView imgMilkTea = convertView.findViewById(R.id.imgMilkTea_user);
 
         MilkTea milkTea = arrayList.get(position);
         txtNameMilkTea.setText(milkTea.getNameMilkTea());
@@ -78,7 +80,13 @@ public class UserAdapter extends ArrayAdapter<MilkTea> {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         StorageReference pathReference = storageRef.child("IMG_CONTACT/"+milkTea.getImageMilkTea());
-//        Glide.with(context).using(new FirebaseImageLoader()).load(pathReference).into(imgMilkTea);
+        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                String imageURL = uri.toString();
+                Glide.with(context).load(imageURL).into(imgMilkTea);
+            }
+        });
 
         return convertView;
     }
