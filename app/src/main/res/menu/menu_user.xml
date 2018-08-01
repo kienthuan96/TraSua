@@ -20,4 +20,9 @@
         android:id="@+id/menuHistoryOrder"
         ></item>
 
+    <item
+        android:title="Thong tin"
+        app:showAsAction="ifRoom"
+        android:id="@+id/menuInfoUser"
+        ></item>
 </menu>

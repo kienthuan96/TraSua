@@ -1,6 +1,8 @@
 package com.example.thuan.thuctap.Activity.Shipper;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +33,7 @@ public class HistoryRegisterOrderActivity extends AppCompatActivity {
     private ListView lstHistoryRegisterOrder;
     private HistoryRegisterOrderAdapter adapter;
     private ArrayList<Order> arrayList;
+    private ArrayList<String> arrayListPhone;
     private String idUser;
     private String idOrder;
 
@@ -57,6 +60,7 @@ public class HistoryRegisterOrderActivity extends AppCompatActivity {
     }
 
     private void getData() {
+        arrayListPhone = new ArrayList<>();
         arrayList = new ArrayList<>();
         adapter = new HistoryRegisterOrderAdapter(HistoryRegisterOrderActivity.this, R.layout.layout_historyregisterorder, arrayList);
         lstHistoryRegisterOrder.setAdapter(adapter);
@@ -75,6 +79,19 @@ public class HistoryRegisterOrderActivity extends AppCompatActivity {
                 {
                     arrayList.add(order);
                     adapter.notifyDataSetChanged();
+
+                    myRefUser.child(order.getIdUser()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+                            arrayListPhone.add(user.getNumberPhone().toString());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
 
@@ -128,6 +145,8 @@ public class HistoryRegisterOrderActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             User user = dataSnapshot.getValue(User.class);
+                            Toast.makeText(HistoryRegisterOrderActivity.this, ""+arrayList.get(number).getPointOrder(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HistoryRegisterOrderActivity.this, ""+user.getPoint(), Toast.LENGTH_SHORT).show();
                             dataSnapshot.getRef().child("point").setValue(user.getPoint() + arrayList.get(number).getPointOrder());
                         }
 
@@ -148,6 +167,14 @@ public class HistoryRegisterOrderActivity extends AppCompatActivity {
                 if (arrayList.get(i).getStatus().equals("Proccess")) {
                     dialog.show();
                 }
+            }
+        });
+
+        lstHistoryRegisterOrder.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", arrayListPhone.get(i), null)));
+                return false;
             }
         });
 

@@ -9,17 +9,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.thuan.thuctap.Model.MilkTea;
 import com.example.thuan.thuctap.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MilkTeaActivity extends AppCompatActivity {
     private Button btnEdit, btnDelete;
     private String idStore, idMilkTea;
+    private TextView txtNameMilkTea;
+    private TextView txtPriceMilkTea;
+    private TextView txtDescriptionMilkTea;
+    private TextView txtDateMilkTea;
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRefMilkTea;
@@ -37,6 +46,10 @@ public class MilkTeaActivity extends AppCompatActivity {
     private void getId(){
         btnEdit = findViewById(R.id.btnEditMilkTea_milkTea);
         btnDelete = findViewById(R.id.btnDeleteMilkTea_milkTea);
+        txtNameMilkTea = findViewById(R.id.txtNameMilkTea_milkTea);
+        txtPriceMilkTea = findViewById(R.id.txtPriceMilkTea_milkTea);
+        txtDateMilkTea = findViewById(R.id.txtDate_milkTea);
+        txtDescriptionMilkTea = findViewById(R.id.txtDescription_milkTea);
     }
 
     private void event(){
@@ -71,6 +84,20 @@ public class MilkTeaActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance();
         myRefMilkTea = mDatabase.getReference("milkTea");
+        myRefMilkTea.child(idMilkTea).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                MilkTea milkTea = dataSnapshot.getValue(MilkTea.class);
+                txtNameMilkTea.setText(milkTea.getNameMilkTea());
+                txtPriceMilkTea.setText(milkTea.getPrice());
+                txtDescriptionMilkTea.setText(milkTea.getDescription());
+                txtDateMilkTea.setText(milkTea.getDateUp());
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

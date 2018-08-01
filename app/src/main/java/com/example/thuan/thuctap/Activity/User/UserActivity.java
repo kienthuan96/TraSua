@@ -67,11 +67,16 @@ public class UserActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("idOrder", idOrder);
                 intent.putExtra("user", bundle);
+                finish();
                 startActivity(intent);
                 return true;
             case R.id.menuHistoryOrder:
                 Intent intentHistory = new Intent(UserActivity.this, HistoryOrderActivity.class);
                 startActivity(intentHistory);
+                return true;
+            case R.id.menuInfoUser:
+                Intent intentInfo = new Intent(UserActivity.this, EditUserActivity.class);
+                startActivity(intentInfo);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

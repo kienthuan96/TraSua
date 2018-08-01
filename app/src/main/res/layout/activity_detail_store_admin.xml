@@ -5,19 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#81C784"
     tools:context=".Activity.Admin.DetailStoreAdminActivity">
 
     <TextView
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:textSize="20dp"
         android:hint="Ten cua hang"
         android:id="@+id/txtNameStore_detaiAdmin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
+        android:drawableLeft="@drawable/ic_location_on_black_24dp"
         android:hint="Dia chi"
         android:id="@+id/txtAddressStore_detaiAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
+        android:drawableLeft="@drawable/ic_local_phone_black_24dp"
         android:hint="So dien thoai"
         android:id="@+id/txtNumberPhoneStore_detaiAdmin"
         android:layout_width="wrap_content"
@@ -26,7 +32,7 @@
     <ListView
         android:id="@+id/lstDetailStore_detailAdmin"
         android:layout_width="match_parent"
-        android:layout_height="403dp"></ListView>
+        android:layout_height="400dp"></ListView>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
