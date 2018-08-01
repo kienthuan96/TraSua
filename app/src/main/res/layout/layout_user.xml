@@ -4,6 +4,8 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:padding="4dp"
+        android:background="@drawable/custom_edittext_login"
         android:layout_width="match_parent"
         android:layout_height="96dp"
         android:orientation="horizontal"
@@ -23,28 +25,40 @@
             android:orientation="vertical">
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/txtNameMilkTea_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Ten Tra Sua" />
 
             <TextView
+                android:paddingRight="10dp"
+                android:textColorHint="#0277BD"
+                android:textColor="#0277BD"
+                android:gravity="right"
+                android:id="@+id/txtStoreMilkTea_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cua Hang" />
+
+            <TextView
+                android:textColorHint="#EF5350"
+                android:textColor="#EF5350"
+                android:drawableLeft="@drawable/ic_attach_money_black_24dp"
                 android:id="@+id/txtPriceMilkTea_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Gia" />
 
             <TextView
+                android:textColorHint="#0277BD"
+                android:textColor="#0277BD"
                 android:id="@+id/txtStatusMilkTea_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Trang Thai" />
 
-            <TextView
-                android:id="@+id/txtStoreMilkTea_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Cua Hang" />
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

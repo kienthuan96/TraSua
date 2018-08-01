@@ -4,28 +4,36 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:padding="4dp"
+        android:background="@drawable/custom_edittext_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:id="@+id/txtNameMilkTea_layoutDetailStore"
             android:text="Ten Tra sua"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
+            android:textColor="#EF5350"
+            android:drawableLeft="@drawable/ic_attach_money_black_24dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:id="@+id/txtPriceMilkTea_layoutDetailStore"
             android:text="Gia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:id="@+id/txtDateMilkTea_layoutDetailStore"
             android:text="Date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:src="@drawable/ic_store_black_24dp"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>

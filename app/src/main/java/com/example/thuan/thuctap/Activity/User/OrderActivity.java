@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.thuan.thuctap.Adapter.User.OrderAdapter;
 import com.example.thuan.thuctap.Model.DetailOrder;
 import com.example.thuan.thuctap.Model.Order;
+import com.example.thuan.thuctap.Model.User;
 import com.example.thuan.thuctap.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,7 +42,7 @@ public class OrderActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private FirebaseDatabase mDatabase;
-    private DatabaseReference myRef, myRefOrder;
+    private DatabaseReference myRef, myRefOrder, myRefUser;
     private TextView txtNameUser;
     private TextView txtPoint;
     private EditText edtAddressOrder;
@@ -69,7 +70,6 @@ public class OrderActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("user");
         idOrder = bundle.getString("idOrder");
-        Toast.makeText(this, ""+idOrder, Toast.LENGTH_SHORT).show();
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -110,6 +110,20 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
+        myRefUser = mDatabase.getReference("user");
+        myRefUser.child(idUser).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                txtNameUser.setText(user.getName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        txtPoint.setText(priceOrder().toString());
     }
 
     private void event() {
@@ -132,6 +146,9 @@ public class OrderActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(OrderActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(OrderActivity.this, UserActivity.class);
+                                finish();
+                                startActivity(intent);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -153,18 +170,19 @@ public class OrderActivity extends AppCompatActivity {
         Long price = 0L;
         for (int i = 0; i < arrayList.size(); i++ ) {
             price += arrayList.get(i).getPriceMilkTea();
+            Toast.makeText(this, ""+price, Toast.LENGTH_SHORT).show();
         }
         return price;
     }
 
     private Integer pointOrder() {
-        if (priceOrder() > 50000) {
+        if (priceOrder() >= 50000) {
             return 2;
         }
-        if (priceOrder() > 100000) {
+        if (priceOrder() >= 100000) {
             return 5;
         }
-        if (priceOrder() > 200000) {
+        if (priceOrder() >= 200000) {
             return 10;
         }
         return 0;

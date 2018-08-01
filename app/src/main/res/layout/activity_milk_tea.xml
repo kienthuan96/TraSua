@@ -5,28 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#81C784"
     tools:context=".Activity.Admin.MilkTeaActivity">
 
+    <ImageView
+        android:src="@drawable/ic_store_black_24dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
     <TextView
+        android:gravity="center_horizontal"
+        android:textSize="20dp"
+        android:textStyle="bold"
         android:id="@+id/txtNameMilkTea_milkTea"
         android:text="Ten tra sua"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <TextView
+        android:drawableLeft="@drawable/ic_attach_money_black_24dp"
+        android:textColor="#EF5350"
         android:id="@+id/txtPriceMilkTea_milkTea"
         android:text="Gia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/txtDate_milkTea"
+        android:text="Date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="Mieu ta"
+        android:id="@+id/txtDescription_milkTea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnEditMilkTea_milkTea"
+            android:text="Chinh sua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnDeleteMilkTea_milkTea"
+            android:text="Xoa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnEditMilkTea_milkTea"
-        android:text="Chinh sua"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/btnDeleteMilkTea_milkTea"
-        android:text="Xoa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>
