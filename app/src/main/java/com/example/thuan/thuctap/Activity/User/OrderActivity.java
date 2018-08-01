@@ -38,6 +38,8 @@ public class OrderActivity extends AppCompatActivity {
     private String idUser;
     private ArrayList<DetailOrder> arrayList;
     private OrderAdapter orderAdapter;
+    private Long price = 0L;
+    private Integer point = 0;
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -87,6 +89,16 @@ public class OrderActivity extends AppCompatActivity {
                 if (detailOrder.getIdOrder().equals(idOrder)) {
                     arrayList.add(detailOrder);
                     orderAdapter.notifyDataSetChanged();
+                    price += detailOrder.getPriceMilkTea();
+                    if (price >= 50000) {
+                        point = 2;
+                    }
+                    if (price >= 100000) {
+                        point = 5;
+                    }
+                    if (price >= 200000) {
+                        point = 10;
+                    }
                 }
             }
 
@@ -123,7 +135,7 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
-        txtPoint.setText(priceOrder().toString());
+
     }
 
     private void event() {
@@ -138,8 +150,8 @@ public class OrderActivity extends AppCompatActivity {
                 order.setIdShipper("");
                 order.setAddressOrder(edtAddressOrder.getText().toString());
                 order.setDateOrder(getDateTime());
-                order.setPriceOrder(priceOrder());
-                order.setPointOrder(pointOrder());
+                order.setPriceOrder(price);
+                order.setPointOrder(point);
                 order.setStatus("Ready"); //Ready Proccess Done
                 myRefOrder.child(order.getId()).setValue(order)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
