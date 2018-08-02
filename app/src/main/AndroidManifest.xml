@@ -42,7 +42,8 @@
         <activity android:name=".Activity.Shipper.DetailOrderActivity" />
         <activity android:name=".Activity.Shipper.HistoryRegisterOrderActivity" />
         <activity android:name=".Activity.User.HistoryOrderActivity" />
-        <activity android:name=".Activity.User.EditUserActivity"></activity>
+        <activity android:name=".Activity.User.EditUserActivity" />
+        <activity android:name=".Activity.Shipper.RatingShipperActivity"></activity>
     </application>
 
 </manifest>

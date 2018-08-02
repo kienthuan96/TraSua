@@ -141,12 +141,25 @@ public class HistoryRegisterOrderActivity extends AppCompatActivity {
                         }
                     });
 
+                    //cong diem cho nguoi dat hang
                     myRefUser.child(arrayList.get(number).getIdUser()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             User user = dataSnapshot.getValue(User.class);
-                            Toast.makeText(HistoryRegisterOrderActivity.this, ""+arrayList.get(number).getPointOrder(), Toast.LENGTH_SHORT).show();
-                            Toast.makeText(HistoryRegisterOrderActivity.this, ""+user.getPoint(), Toast.LENGTH_SHORT).show();
+                            dataSnapshot.getRef().child("point").setValue(user.getPoint() + arrayList.get(number).getPointOrder());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    //cong diem cho nguoi giao hang
+                    myRefUser.child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
                             dataSnapshot.getRef().child("point").setValue(user.getPoint() + arrayList.get(number).getPointOrder());
                         }
 

@@ -70,6 +70,10 @@ public class ShipperActivity extends AppCompatActivity {
                 Intent intent = new Intent(ShipperActivity.this, HistoryRegisterOrderActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.menuRating:
+                Intent intentRating = new Intent(ShipperActivity.this, RatingShipperActivity.class);
+                startActivity(intentRating);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

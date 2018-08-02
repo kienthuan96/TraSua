@@ -140,12 +140,15 @@ public class OrderActivity extends AppCompatActivity {
 
                 if (user.getPoint() >= 20) {
                     arrVoucher.add("30.000");
+                    Toast.makeText(OrderActivity.this, "3", Toast.LENGTH_SHORT).show();
                 }
                 if (user.getPoint() >= 50) {
                     arrVoucher.add("50.000");
+                    Toast.makeText(OrderActivity.this, "5", Toast.LENGTH_SHORT).show();
                 }
                 if (user.getPoint() >= 100) {
                     arrVoucher.add("150.000");
+                    Toast.makeText(OrderActivity.this, "10", Toast.LENGTH_SHORT).show();
                 }
 
                 voucherAdapter = new ArrayAdapter(OrderActivity.this, android.R.layout.simple_spinner_item, arrVoucher);

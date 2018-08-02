@@ -14,4 +14,10 @@
         android:id="@+id/menuHistoryRegisterOrder"
         ></item>
 
+    <item
+        android:title="Xep Hang"
+        app:showAsAction="ifRoom"
+        android:id="@+id/menuRating"
+        ></item>
+
 </menu>
