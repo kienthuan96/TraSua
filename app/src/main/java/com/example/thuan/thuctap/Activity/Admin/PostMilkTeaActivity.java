@@ -114,10 +114,10 @@ public class PostMilkTeaActivity extends AppCompatActivity {
     }
 
     public String uploadIMG(Uri uri){
-        Calendar calendar=Calendar.getInstance();
-        String ten=calendar.getTimeInMillis()+"";
+        Calendar calendar = Calendar.getInstance();
+        String ten = calendar.getTimeInMillis()+"";
 
-        StorageReference filepath=storageRef.child("IMG_CONTACT").child(ten);
+        StorageReference filepath = storageRef.child("IMG_CONTACT").child(ten);
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -145,9 +145,9 @@ public class PostMilkTeaActivity extends AppCompatActivity {
     }
 
     private void getId(){
-        mAuth= FirebaseAuth.getInstance();
-        mUser=mAuth.getCurrentUser();
-        idUser=mUser.getUid();
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        idUser = mUser.getUid();
 
         edtNameMilkTea = findViewById(R.id.edtNameMilkTea_postMilkTea);
         edtPriceMilkTea = findViewById(R.id.edtPriceMilkTea_postMilkTea);
