@@ -75,8 +75,8 @@ public class StatisticalAdapter extends ArrayAdapter<DetailOrder> {
         });
 
         txtAmount.setText(detailOrder.getAmount().toString() + " x ");
-        txtPrice.setText(detailOrder.getPriceMilkTea().toString());
-        txtTotal.setText(String.valueOf(detailOrder.getAmount() * detailOrder.getPriceMilkTea()));
+        txtPrice.setText(String.format("%,d", detailOrder.getPriceMilkTea()));
+        txtTotal.setText(String.format("%,d", detailOrder.getAmount() * detailOrder.getPriceMilkTea()));
 
         myRefOrder = mDatabase.getReference("order");
         myRefOrder.child(detailOrder.getIdOrder()).addValueEventListener(new ValueEventListener() {

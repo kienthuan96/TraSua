@@ -23,7 +23,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
+    <LinearLayout
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtAmountOrder_statistical"
+            android:layout_weight="1"
+            android:text="So đơn dat hang"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/txtTotalOrder_statistical"
+            android:text="Tong tien"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lstStatistical_statistical"
