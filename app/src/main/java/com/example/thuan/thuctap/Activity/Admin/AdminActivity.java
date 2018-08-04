@@ -88,6 +88,10 @@ public class AdminActivity extends AppCompatActivity {
                 Intent intentPost=new Intent(AdminActivity.this,PostStoreActivity.class);
                 startActivity(intentPost);
                 return true;
+            case R.id.menuRevenue:
+                Intent intentRevenue=new Intent(AdminActivity.this,StatisticalActivity.class);
+                startActivity(intentRevenue);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

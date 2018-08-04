@@ -133,6 +133,7 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
+
         myRefUser = mDatabase.getReference("user");
         myRefUser.child(idUser).addValueEventListener(new ValueEventListener() {
             @Override
@@ -192,7 +193,7 @@ public class OrderActivity extends AppCompatActivity {
                 }
                 Toast.makeText(OrderActivity.this, "Gia change"+price, Toast.LENGTH_SHORT).show();
                 Order order = new Order();
-                order.setId(myRefOrder.push().getKey());
+                order.setId(idOrder);
                 order.setArrayList(arrayList);
                 order.setIdUser(idUser);
                 order.setIdShipper("");
