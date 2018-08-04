@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.thuan.thuctap.Activity.Login.LoginActivity;
 import com.example.thuan.thuctap.Activity.User.OrderActivity;
 import com.example.thuan.thuctap.Activity.User.UserActivity;
 import com.example.thuan.thuctap.Adapter.Shipper.ShipperAdapter;
@@ -66,6 +67,12 @@ public class ShipperActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.menuLogOut:
+                Intent intentLogin = new Intent(ShipperActivity.this, LoginActivity.class);
+                mAuth.signOut();
+                finish();
+                startActivity(intentLogin);
+                return true;
             case R.id.menuHistoryRegisterOrder:
                 Intent intent = new Intent(ShipperActivity.this, HistoryRegisterOrderActivity.class);
                 startActivity(intent);

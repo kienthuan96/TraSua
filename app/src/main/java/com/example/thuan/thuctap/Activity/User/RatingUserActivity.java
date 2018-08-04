@@ -1,4 +1,4 @@
-package com.example.thuan.thuctap.Activity.Shipper;
+package com.example.thuan.thuctap.Activity.User;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.example.thuan.thuctap.Adapter.Shipper.RatingShipperAdapter;
-import com.example.thuan.thuctap.Model.DetailOrder;
 import com.example.thuan.thuctap.Model.User;
 import com.example.thuan.thuctap.R;
 import com.google.firebase.database.ChildEventListener;
@@ -20,10 +19,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class RatingShipperActivity extends AppCompatActivity {
-    private RatingShipperAdapter adapter;
+public class RatingUserActivity extends AppCompatActivity {
     private ArrayList<User> arrayList;
-    private ListView lstRatingShipper;
+    private RatingShipperAdapter adapter;
+    private ListView lstRatingUser;
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRefUser;
@@ -32,19 +31,18 @@ public class RatingShipperActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_shipper);
-
         getId();
         getData();
     }
 
     private void getId() {
-        lstRatingShipper = findViewById(R.id.lstRating_ratingShipper);
+        lstRatingUser = findViewById(R.id.lstRating_ratingShipper);
     }
 
     private void getData() {
         arrayList = new ArrayList<>();
-        adapter = new RatingShipperAdapter(RatingShipperActivity.this, R.layout.layout_ratingshipper, arrayList);
-        lstRatingShipper.setAdapter(adapter);
+        adapter = new RatingShipperAdapter(RatingUserActivity.this, R.layout.layout_ratingshipper, arrayList);
+        lstRatingUser.setAdapter(adapter);
 
         mDatabase = FirebaseDatabase.getInstance();
         myRefUser = mDatabase.getReference("user");
@@ -52,7 +50,7 @@ public class RatingShipperActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
-                if (user.getStatus().equals("Shipper")) {
+                if (user.getStatus().equals("User")) {
                     arrayList.add(user);
 
                     Collections.sort(arrayList, new Comparator<User>(){

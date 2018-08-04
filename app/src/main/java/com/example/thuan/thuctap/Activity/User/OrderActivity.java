@@ -34,6 +34,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class OrderActivity extends AppCompatActivity {
@@ -98,7 +100,7 @@ public class OrderActivity extends AppCompatActivity {
                 if (detailOrder.getIdOrder().equals(idOrder)) {
                     arrayList.add(detailOrder);
                     orderAdapter.notifyDataSetChanged();
-                    price += detailOrder.getPriceMilkTea();
+                    price += detailOrder.getPriceMilkTea() * detailOrder.getAmount();
                     if (price >= 50000) {
                         point = 2;
                     }
@@ -137,20 +139,16 @@ public class OrderActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 txtNameUser.setText(user.getName());
-
+                arrVoucher.add("none");
                 if (user.getPoint() >= 20) {
                     arrVoucher.add("30.000");
-                    Toast.makeText(OrderActivity.this, "3", Toast.LENGTH_SHORT).show();
                 }
                 if (user.getPoint() >= 50) {
                     arrVoucher.add("50.000");
-                    Toast.makeText(OrderActivity.this, "5", Toast.LENGTH_SHORT).show();
                 }
                 if (user.getPoint() >= 100) {
                     arrVoucher.add("150.000");
-                    Toast.makeText(OrderActivity.this, "10", Toast.LENGTH_SHORT).show();
                 }
-
                 voucherAdapter = new ArrayAdapter(OrderActivity.this, android.R.layout.simple_spinner_item, arrVoucher);
                 spinner.setDropDownHorizontalOffset(android.R.layout.simple_list_item_single_choice);
                 spinner.setAdapter(voucherAdapter);
@@ -161,6 +159,8 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 
@@ -180,10 +180,17 @@ public class OrderActivity extends AppCompatActivity {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(OrderActivity.this, "Gia "+price, Toast.LENGTH_SHORT).show();
                 if (voucher.equals("30.000")) {
                     price = Math.abs(price - 30000);
                 }
-
+                if (voucher.equals("50.000")) {
+                    price = Math.abs(price - 50000);
+                }
+                if (voucher.equals("150.000")) {
+                    price = Math.abs(price - 150000);
+                }
+                Toast.makeText(OrderActivity.this, "Gia change"+price, Toast.LENGTH_SHORT).show();
                 Order order = new Order();
                 order.setId(myRefOrder.push().getKey());
                 order.setArrayList(arrayList);

@@ -4,19 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:background="#81C784"
-        android:textStyle="bold"
-        android:gravity="center_horizontal"
-        android:text="Bang xep hang Khach Hang"
+    tools:context=".Activity.Admin.StatisticalActivity">
+    <Spinner
+        android:id="@+id/spnStore_statistical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"></Spinner>
     <ListView
-        android:id="@+id/lstRating_ratingShipper"
+        android:id="@+id/lstStatistical_statistical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>

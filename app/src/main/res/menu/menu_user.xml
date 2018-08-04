@@ -21,8 +21,8 @@
         ></item>
 
     <item
-        android:title="Thong tin"
+        android:title="Xep hang"
         app:showAsAction="ifRoom"
-        android:id="@+id/menuInfoUser"
+        android:id="@+id/menuRatingUser"
         ></item>
 </menu>

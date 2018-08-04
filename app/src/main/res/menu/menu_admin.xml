@@ -14,4 +14,10 @@
         android:id="@+id/menuPost"
         ></item>
 
+    <item
+        android:title="Doanh thu"
+        app:showAsAction="ifRoom"
+        android:id="@+id/menuRevenue"
+        ></item>
+
 </menu>
