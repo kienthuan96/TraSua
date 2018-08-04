@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.thuan.thuctap.Activity.Login.LoginActivity;
+import com.example.thuan.thuctap.Activity.Shipper.ShipperActivity;
 import com.example.thuan.thuctap.Adapter.Admin.AdminAdapter;
 import com.example.thuan.thuctap.Model.Store;
 import com.example.thuan.thuctap.R;
@@ -78,9 +79,10 @@ public class AdminActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menuLogOut:
-                Intent intentLogOut=new Intent(AdminActivity.this,LoginActivity.class);
+                Intent intentLogin = new Intent(AdminActivity.this, LoginActivity.class);
                 mAuth.signOut();
-                startActivity(intentLogOut);
+                finish();
+                startActivity(intentLogin);
                 return true;
             case R.id.menuPost:
                 Intent intentPost=new Intent(AdminActivity.this,PostStoreActivity.class);

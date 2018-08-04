@@ -1,10 +1,15 @@
 package com.example.thuan.thuctap.Activity.Login;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        checkInternet();
         mAuth=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("user");
@@ -112,6 +118,30 @@ public class LoginActivity extends AppCompatActivity {
             edtPassword.setText(pwd);
         }
         chkSaveInfo.setChecked(bchk);
+    }
+
+    private void checkInternet() {
+        if (isConnected() == false) {
+            AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
+            alertDialog.setTitle("Thông báo")
+                    .setMessage("Bạn chưa kết nối mạng !!!")
+                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    })
+                    .show();
+        } else {
+            Toast.makeText(this, "Đã kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isConnected(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnectedOrConnecting())  return true;
+        return false;
     }
     /**
      * kiem tra da dang nhap user chua
@@ -190,16 +220,19 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void transAdmin(){
         Intent intent=new Intent(LoginActivity.this, AdminActivity.class);
+        finish();
         startActivity(intent);
     }
 
     private void transUser(){
         Intent intent=new Intent(LoginActivity.this, UserActivity.class);
+        finish();
         startActivity(intent);
     }
 
     private void transShipper(){
         Intent intent=new Intent(LoginActivity.this, ShipperActivity.class);
+        finish();
         startActivity(intent);
     }
 

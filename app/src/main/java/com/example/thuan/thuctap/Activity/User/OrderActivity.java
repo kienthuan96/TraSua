@@ -6,9 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class OrderActivity extends AppCompatActivity {
@@ -38,6 +43,11 @@ public class OrderActivity extends AppCompatActivity {
     private String idUser;
     private ArrayList<DetailOrder> arrayList;
     private OrderAdapter orderAdapter;
+    private Long price = 0L;
+    private Integer point = 0;
+    private ArrayList<String> arrVoucher;
+    private ArrayAdapter voucherAdapter;
+    private String voucher;
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -48,6 +58,7 @@ public class OrderActivity extends AppCompatActivity {
     private EditText edtAddressOrder;
     private ListView lstMilkTeaOrder;
     private Button btnOrder;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +75,7 @@ public class OrderActivity extends AppCompatActivity {
         edtAddressOrder = findViewById(R.id.edtAddressOrder_order);
         lstMilkTeaOrder = findViewById(R.id.lstMilkTeaOrder_order);
         btnOrder = findViewById(R.id.btnOrder_order);
+        spinner = findViewById(R.id.spnVoucher_order);
     }
 
     private void getData() {
@@ -75,6 +87,7 @@ public class OrderActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
         idUser = mUser.getUid();
 
+        arrVoucher = new ArrayList<>();
         arrayList = new ArrayList<>();
         orderAdapter = new OrderAdapter(OrderActivity.this, R.layout.layout_detailorder, arrayList);
         lstMilkTeaOrder.setAdapter(orderAdapter);
@@ -87,6 +100,16 @@ public class OrderActivity extends AppCompatActivity {
                 if (detailOrder.getIdOrder().equals(idOrder)) {
                     arrayList.add(detailOrder);
                     orderAdapter.notifyDataSetChanged();
+                    price += detailOrder.getPriceMilkTea() * detailOrder.getAmount();
+                    if (price >= 50000) {
+                        point = 2;
+                    }
+                    if (price >= 100000) {
+                        point = 5;
+                    }
+                    if (price >= 200000) {
+                        point = 10;
+                    }
                 }
             }
 
@@ -116,6 +139,19 @@ public class OrderActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 txtNameUser.setText(user.getName());
+                arrVoucher.add("none");
+                if (user.getPoint() >= 20) {
+                    arrVoucher.add("30.000");
+                }
+                if (user.getPoint() >= 50) {
+                    arrVoucher.add("50.000");
+                }
+                if (user.getPoint() >= 100) {
+                    arrVoucher.add("150.000");
+                }
+                voucherAdapter = new ArrayAdapter(OrderActivity.this, android.R.layout.simple_spinner_item, arrVoucher);
+                spinner.setDropDownHorizontalOffset(android.R.layout.simple_list_item_single_choice);
+                spinner.setAdapter(voucherAdapter);
             }
 
             @Override
@@ -123,14 +159,38 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
-        txtPoint.setText(priceOrder().toString());
+
+
+
     }
 
     private void event() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                voucher = arrVoucher.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                voucher = arrVoucher.get(0);
+            }
+        });
         myRefOrder = mDatabase.getReference("order");
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(OrderActivity.this, "Gia "+price, Toast.LENGTH_SHORT).show();
+                if (voucher.equals("30.000")) {
+                    price = Math.abs(price - 30000);
+                }
+                if (voucher.equals("50.000")) {
+                    price = Math.abs(price - 50000);
+                }
+                if (voucher.equals("150.000")) {
+                    price = Math.abs(price - 150000);
+                }
+                Toast.makeText(OrderActivity.this, "Gia change"+price, Toast.LENGTH_SHORT).show();
                 Order order = new Order();
                 order.setId(myRefOrder.push().getKey());
                 order.setArrayList(arrayList);
@@ -138,8 +198,8 @@ public class OrderActivity extends AppCompatActivity {
                 order.setIdShipper("");
                 order.setAddressOrder(edtAddressOrder.getText().toString());
                 order.setDateOrder(getDateTime());
-                order.setPriceOrder(priceOrder());
-                order.setPointOrder(pointOrder());
+                order.setPriceOrder(price);
+                order.setPointOrder(point);
                 order.setStatus("Ready"); //Ready Proccess Done
                 myRefOrder.child(order.getId()).setValue(order)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {

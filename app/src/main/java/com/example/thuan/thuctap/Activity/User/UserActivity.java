@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.thuan.thuctap.Activity.Admin.MilkTeaActivity;
 import com.example.thuan.thuctap.Activity.Admin.PostMilkTeaActivity;
+import com.example.thuan.thuctap.Activity.Login.LoginActivity;
+import com.example.thuan.thuctap.Activity.Shipper.ShipperActivity;
 import com.example.thuan.thuctap.Adapter.User.UserAdapter;
 import com.example.thuan.thuctap.Model.MilkTea;
 import com.example.thuan.thuctap.Model.User;
@@ -62,6 +64,12 @@ public class UserActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.menuLogOut:
+                Intent intentLogin = new Intent(UserActivity.this, LoginActivity.class);
+                mAuth.signOut();
+                finish();
+                startActivity(intentLogin);
+                return true;
             case R.id.menuOrder:
                 Intent intent = new Intent(UserActivity.this, OrderActivity.class);
                 Bundle bundle = new Bundle();
@@ -74,9 +82,9 @@ public class UserActivity extends AppCompatActivity {
                 Intent intentHistory = new Intent(UserActivity.this, HistoryOrderActivity.class);
                 startActivity(intentHistory);
                 return true;
-            case R.id.menuInfoUser:
-                Intent intentInfo = new Intent(UserActivity.this, EditUserActivity.class);
-                startActivity(intentInfo);
+            case R.id.menuRatingUser:
+                Intent intentRating = new Intent(UserActivity.this, RatingUserActivity.class);
+                startActivity(intentRating);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

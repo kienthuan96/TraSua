@@ -20,22 +20,26 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:weightSum="4"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:layout_weight="1"
             android:id="@+id/txtPoint_order"
             android:text="Diem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
+            android:layout_weight="1"
             android:id="@+id/btnOrder_order"
             android:text="Dat hang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Spinner
+            android:layout_weight="2"
             android:id="@+id/spnVoucher_order"
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"></Spinner>
     </LinearLayout>
 
