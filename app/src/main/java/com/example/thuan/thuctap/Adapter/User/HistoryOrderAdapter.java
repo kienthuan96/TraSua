@@ -58,7 +58,7 @@ public class HistoryOrderAdapter extends ArrayAdapter<Order> {
 
         final Order order = arrayList.get(position);
 
-        txtPrice.setText(order.getPriceOrder().toString());
+        txtPrice.setText(String.format("%,d",order.getPriceOrder()));
         txtAddress.setText(order.getAddressOrder());
         txtDate.setText(order.getDateOrder());
         txtCode.setText(order.getId());

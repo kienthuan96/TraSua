@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thuan.thuctap.Activity.Event.MyEditTextDatePicker;
@@ -36,6 +37,8 @@ public class StatisticalActivity extends AppCompatActivity {
     private EditText edtDate;
     private ListView lstOrder;
     private Button btnSearch;
+    private TextView txtAmountOrder;
+    private TextView txtTotal;
 
     private ArrayList<DetailOrder> arrayList;
     private StatisticalAdapter adapter;
@@ -45,6 +48,8 @@ public class StatisticalActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     private Date dateClick;
     private String idUser;
+    private Integer amount = 0;
+    private Long total = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,8 @@ public class StatisticalActivity extends AppCompatActivity {
         edtDate = findViewById(R.id.edtDate_statistical);
         lstOrder = findViewById(R.id.lstStatistical_statistical);
         btnSearch = findViewById(R.id.btnSearch_statistical);
+        txtAmountOrder = findViewById(R.id.txtAmountOrder_statistical);
+        txtTotal = findViewById(R.id.txtTotalOrder_statistical);
     }
 
     private void getData(final Date dateClick) {
@@ -94,6 +101,11 @@ public class StatisticalActivity extends AppCompatActivity {
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             Store store = dataSnapshot.getValue(Store.class);
                                             if (store.getIdUser().equals(idUser)) {
+                                                amount += 1;
+                                                total += order.getPriceOrder();
+                                                txtAmountOrder.setText(amount.toString());
+                                                txtTotal.setText(String.format("%,d", total));
+
                                                 arrayList.add(arrayListDetailOrder.get(finalI));
                                                 adapter.notifyDataSetChanged();
                                             }
@@ -111,48 +123,6 @@ public class StatisticalActivity extends AppCompatActivity {
 
                                 }
                             });
-//                            myRefMilkTea.addChildEventListener(new ChildEventListener() {
-//                                @Override
-//                                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//                                    MilkTea milkTea = dataSnapshot.getValue(MilkTea.class);
-//                                    Toast.makeText(StatisticalActivity.this, ""+milkTea.getNameMilkTea(), Toast.LENGTH_SHORT).show();
-//                                    myRefStore.child(milkTea.getIdStore()).addValueEventListener(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                            Store store = dataSnapshot.getValue(Store.class);
-//                                            if (store.getIdUser().equals(idUser)) {
-//                                                arrayList.add(arrayListDetailOrder.get(finalI));
-//                                                adapter.notifyDataSetChanged();
-//                                            }
-//                                        }
-//
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                                        }
-//                                    });
-//                                }
-//
-//                                @Override
-//                                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                                }
-//
-//                                @Override
-//                                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//                                }
-//
-//                                @Override
-//                                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                                }
-//                            });
                         }
 
 

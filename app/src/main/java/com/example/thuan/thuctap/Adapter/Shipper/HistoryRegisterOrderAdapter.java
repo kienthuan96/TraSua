@@ -55,7 +55,7 @@ public class HistoryRegisterOrderAdapter extends ArrayAdapter<Order>{
         final Order order = arrayList.get(position);
 
         txtAddressOrder.setText(order.getAddressOrder());
-        txtPriceOrder.setText(order.getPriceOrder().toString());
+        txtPriceOrder.setText(String.format("%,d", order.getPriceOrder()));
         txtDateOrder.setText(order.getDateOrder().toString());
         txtStatusOrder.setText(order.getStatus());
 

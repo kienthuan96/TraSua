@@ -62,7 +62,7 @@ public class OrderAdapter extends ArrayAdapter<DetailOrder>{
         final DetailOrder detailOrder = arrayList.get(position);
 
         txtAmount.setText(detailOrder.getAmount().toString());
-        txtPrice.setText(String.valueOf(detailOrder.getAmount() * detailOrder.getPriceMilkTea()));
+        txtPrice.setText(String.format("%,d", detailOrder.getAmount() * detailOrder.getPriceMilkTea()));
 
         mDatabase = FirebaseDatabase.getInstance();
         myRefDetailOrder = mDatabase.getReference("detailOrder");
