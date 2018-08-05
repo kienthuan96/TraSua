@@ -41,7 +41,7 @@ public class DetailStoreAdapter extends ArrayAdapter<MilkTea> {
 
         MilkTea milkTea = arrayList.get(position);
         txtNameMilkTea.setText(milkTea.getNameMilkTea());
-        txtPriceMilkTea.setText(String.format("%,d", milkTea.getPrice()));
+        txtPriceMilkTea.setText(milkTea.getPrice());
         txtDateMilkTea.setText(milkTea.getDateUp());
 
 

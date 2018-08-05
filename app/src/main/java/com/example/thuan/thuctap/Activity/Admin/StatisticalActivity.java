@@ -88,7 +88,7 @@ public class StatisticalActivity extends AppCompatActivity {
                 final Order order = dataSnapshot.getValue(Order.class);
                 try {
                     Date date = new SimpleDateFormat("yyyy/MM/dd").parse(order.getDateOrder());
-                    if (date.compareTo(dateClick) == 0 ) {
+                    if (date.compareTo(dateClick) == 0 && order.getStatus().equals("Done")) {
                         final ArrayList<DetailOrder> arrayListDetailOrder = order.getArrayList();
                         for (int i=0; i<arrayListDetailOrder.size(); i++) {
                             final int finalI = i;
@@ -160,9 +160,13 @@ public class StatisticalActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(StatisticalActivity.this, ""+edtDate.getText(), Toast.LENGTH_SHORT).show();
                 try {
                     dateClick = new SimpleDateFormat("yyyy/MM/dd").parse(edtDate.getText().toString());
+                    amount = 0;
+                    total = 0L;
+                    txtAmountOrder.setText(amount.toString());
+                    txtTotal.setText(String.format("%,d", total));
+
                     getData(dateClick);
                 } catch (ParseException e) {
                     e.printStackTrace();

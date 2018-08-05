@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 (prefName, MODE_PRIVATE);
         //tạo đối tượng Editor để lưu thay đổi
         SharedPreferences.Editor editor=pre.edit();
-        boolean bchk=chkSaveInfo.isChecked();
+        boolean bchk = chkSaveInfo.isChecked();
         if(!bchk)
         {
             //xóa mọi lưu trữ trước đó
@@ -133,7 +133,8 @@ public class LoginActivity extends AppCompatActivity {
                     })
                     .show();
         } else {
-            Toast.makeText(this, "Đã kết nối mạng", Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(LoginActivity.this, "Đã kết nối mạng ", 5000, MDToast.TYPE_SUCCESS);
+            mdToast.show();
         }
     }
 
@@ -147,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
      * kiem tra da dang nhap user chua
      */
     private void checkLogin(){
-        if (mAuth!=null){
+        if (mAuth != null){
 //            mdToast = MDToast.makeText(LoginActivity.this, "Name "+mAuth.getCurrentUser().getEmail(), 5000, MDToast.TYPE_ERROR);
 //            mdToast.show();
             transAdmin();

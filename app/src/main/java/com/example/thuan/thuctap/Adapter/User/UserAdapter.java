@@ -58,12 +58,11 @@ public class UserAdapter extends ArrayAdapter<MilkTea> {
 
         MilkTea milkTea = arrayList.get(position);
         txtNameMilkTea.setText(milkTea.getNameMilkTea());
-        txtPriceMilkTea.setText(String.format("%,d", milkTea.getPrice()));
+        txtPriceMilkTea.setText(milkTea.getPrice());
         txtStatusMilkTea.setText(milkTea.getStatus());
 
         mDatabase = FirebaseDatabase.getInstance();
         myRef = mDatabase.getReference("store");
-//        Toast.makeText(context, ""+milkTea.getIdStore(), Toast.LENGTH_SHORT).show();
         myRef.child(milkTea.getIdStore()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -92,7 +92,6 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
         txtNumberPhoneDetailStore = findViewById(R.id.txtNumberPhoneStore_detaiAdmin);
         btnDeleteStore = findViewById(R.id.btnDeleteStore_detailAdmin);
         btnEditStore = findViewById(R.id.btnEditStore_detailAdmin);
-        btnAddMilkTea = findViewById(R.id.btnAddMilkTea_detailAdmin);
         lstDetailStore = findViewById(R.id.lstDetailStore_detailAdmin);
     }
 
@@ -165,6 +164,8 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Intent intent = new Intent(DetailStoreAdminActivity.this, AdminActivity.class);
+                startActivity(intent);
                 Toast.makeText(DetailStoreAdminActivity.this, "Khong thanh cong", Toast.LENGTH_SHORT).show();
             }
         });
