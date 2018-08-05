@@ -47,11 +47,6 @@
             android:text="Sua"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/btnAddMilkTea_detailAdmin"
-            android:text="Them Menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

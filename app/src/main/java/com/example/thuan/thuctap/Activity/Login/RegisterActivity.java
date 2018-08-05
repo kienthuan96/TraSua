@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
+    private MDToast mdToast;
     private EditText edtAccount;
     private EditText edtPassword;
     private EditText edtRePassword;
@@ -205,27 +207,33 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean checkError(){
         if (edtAccount.getText().toString().isEmpty())
         {
-            Toast.makeText(RegisterActivity.this,"Please input account",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy nhập tài khoản ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (edtPassword.getText().toString().isEmpty()){
-            Toast.makeText(RegisterActivity.this,"Please input password",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy nhập mật khẩu ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (edtRePassword.getText().toString().isEmpty()){
-            Toast.makeText(RegisterActivity.this,"Please input password",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy nhập mật khẩu ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (edtFullName.getText().toString().isEmpty()){
-            Toast.makeText(RegisterActivity.this,"Please input full name",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy nhập tên ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (edtPhone.getText().toString().isEmpty()){
-            Toast.makeText(RegisterActivity.this,"Please input phone",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy nhập số điện thoại ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (uri == null){
-            Toast.makeText(RegisterActivity.this,"Please choose avatar",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy chọn ảnh đại diện ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
 //        if (edtPassword.getText().toString().equals(edtRePassword.getText().toString())){
@@ -233,11 +241,13 @@ public class RegisterActivity extends AppCompatActivity {
 //            return false;
 //        }
         if (edtPassword.getText().toString().length() < 6 ){
-            Toast.makeText(RegisterActivity.this,"Password not length " ,Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Mật khẩu không đủ 6 kí tự ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (!edtAccount.getText().toString().contains("@")){
-            Toast.makeText(RegisterActivity.this,"Account not right",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Tên tài khoản thiếu @", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         return true;
