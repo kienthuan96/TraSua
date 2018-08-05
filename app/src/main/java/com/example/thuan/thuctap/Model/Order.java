@@ -12,11 +12,12 @@ public class Order {
     private String dateOrder;
     private Long priceOrder;
     private String status;
+    private Integer rate;
 
     public Order() {
     }
 
-    public Order(String id, String idUser, String idShipper, ArrayList<DetailOrder> arrayList, String addressOrder, Integer pointOrder, String dateOrder, Long priceOrder, String status) {
+    public Order(String id, String idUser, String idShipper, ArrayList<DetailOrder> arrayList, String addressOrder, Integer pointOrder, String dateOrder, Long priceOrder, String status, Integer rate) {
         this.id = id;
         this.idUser = idUser;
         this.idShipper = idShipper;
@@ -26,6 +27,15 @@ public class Order {
         this.dateOrder = dateOrder;
         this.priceOrder = priceOrder;
         this.status = status;
+        this.rate = rate;
+    }
+
+    public Integer getRate() {
+        return rate;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
     }
 
     public String getIdShipper() {

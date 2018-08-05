@@ -201,6 +201,7 @@ public class OrderActivity extends AppCompatActivity {
                 order.setDateOrder(getDateTime());
                 order.setPriceOrder(price);
                 order.setPointOrder(point);
+                order.setRate(3);
                 order.setStatus("Ready"); //Ready Proccess Done
                 myRefOrder.child(order.getId()).setValue(order)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {

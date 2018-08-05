@@ -21,6 +21,7 @@
     <!--</LinearLayout>-->
 
     <ListView
+        android:background="#A7FFEB"
         android:id="@+id/lstStore_admin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
