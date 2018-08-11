@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
+    private MDToast mdToast;
     private EditText edtAccount;
     private EditText edtPassword;
     private EditText edtRePassword;
@@ -130,8 +132,9 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Toast.makeText(RegisterActivity.this, ""+edtPhone.getText().toString(), Toast.LENGTH_SHORT).show();
                 if (checkError()){
-                    createUser(edtAccount.getText().toString(),edtPassword.getText().toString(),edtFullName.getText().toString(),uri,status);
+                    createUser(edtAccount.getText().toString(),edtPassword.getText().toString(),edtFullName.getText().toString(),uri,status,edtPhone.getText().toString());
                 }
 
             }
@@ -153,11 +156,17 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * chuyen sang thu vien cua may
      */
-    private void transGallery(){
-        Intent intent=new Intent();
+    private void transGallery() {
+        Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE);
+    }
+
+    private void transLogin() {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        finish();
+        startActivity(intent);
     }
 
     /**
@@ -168,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
      * @param uriU
      * tao tai khoan tren firebase
      */
-    private void createUser(String accountU, String passwordU, final String fullNameU, final Uri uriU, final String status){
+    private void createUser(String accountU, String passwordU, final String fullNameU, final Uri uriU, final String status, final String phone){
         mAuth.createUserWithEmailAndPassword(accountU, passwordU)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -176,11 +185,13 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             user = mAuth.getCurrentUser();
-                            UserProfileChangeRequest userProfileChangeRequest= new UserProfileChangeRequest.Builder().setPhotoUri(uriU).setDisplayName(fullNameU).build();
+                            UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder().setPhotoUri(uriU).setDisplayName(fullNameU).build();
                             user.updateProfile(userProfileChangeRequest);
-                            User mUser=new User(user.getUid(),fullNameU,0,status);
+                            User mUser = new User(user.getUid(),fullNameU,0,status,phone);
                             myRef.child(mUser.getIdUser()).setValue(mUser);
                             Toast.makeText(RegisterActivity.this,"Success",Toast.LENGTH_SHORT).show();
+                            transLogin();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(RegisterActivity.this,"Fail",Toast.LENGTH_SHORT).show();
@@ -196,27 +207,33 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean checkError(){
         if (edtAccount.getText().toString().isEmpty())
         {
-            Toast.makeText(RegisterActivity.this,"Please input account",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy nhập tài khoản ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (edtPassword.getText().toString().isEmpty()){
-            Toast.makeText(RegisterActivity.this,"Please input password",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy nhập mật khẩu ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (edtRePassword.getText().toString().isEmpty()){
-            Toast.makeText(RegisterActivity.this,"Please input password",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy nhập mật khẩu ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (edtFullName.getText().toString().isEmpty()){
-            Toast.makeText(RegisterActivity.this,"Please input full name",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy nhập tên ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (edtPhone.getText().toString().isEmpty()){
-            Toast.makeText(RegisterActivity.this,"Please input phone",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy nhập số điện thoại ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (uri == null){
-            Toast.makeText(RegisterActivity.this,"Please choose avatar",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Hãy chọn ảnh đại diện ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
 //        if (edtPassword.getText().toString().equals(edtRePassword.getText().toString())){
@@ -224,11 +241,13 @@ public class RegisterActivity extends AppCompatActivity {
 //            return false;
 //        }
         if (edtPassword.getText().toString().length() < 6 ){
-            Toast.makeText(RegisterActivity.this,"Password not length " ,Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Mật khẩu không đủ 6 kí tự ", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         if (!edtAccount.getText().toString().contains("@")){
-            Toast.makeText(RegisterActivity.this,"Account not right",Toast.LENGTH_SHORT).show();
+            mdToast = MDToast.makeText(RegisterActivity.this, "Tên tài khoản thiếu @", 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
             return false;
         }
         return true;

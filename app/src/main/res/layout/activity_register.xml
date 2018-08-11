@@ -50,6 +50,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:fontFamily="@font/cucho_bold"
                 android:id="@+id/edtAccount_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,6 +65,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:fontFamily="@font/cucho_bold"
                 android:id="@+id/edtFullName_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,6 +80,8 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:fontFamily="@font/cucho_bold"
+                android:inputType="textPassword"
                 android:id="@+id/edtPassword_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,6 +96,8 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:fontFamily="@font/cucho_bold"
+                android:inputType="textPassword"
                 android:id="@+id/edtRePassword_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

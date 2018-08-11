@@ -5,15 +5,25 @@ public class User {
     private String name;
     private Integer point;
     private String status;
+    private String numberPhone;
 
     public User() {
     }
 
-    public User(String idUser, String name, Integer point, String status) {
+    public User(String idUser, String name, Integer point, String status, String numberPhone) {
         this.idUser = idUser;
         this.name = name;
         this.point = point;
         this.status = status;
+        this.numberPhone = numberPhone;
+    }
+
+    public String getNumberPhone() {
+        return numberPhone;
+    }
+
+    public void setNumberPhone(String numberPhone) {
+        this.numberPhone = numberPhone;
     }
 
     public String getName() {

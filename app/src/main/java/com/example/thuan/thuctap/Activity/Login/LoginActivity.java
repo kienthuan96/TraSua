@@ -1,10 +1,15 @@
 package com.example.thuan.thuctap.Activity.Login;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.thuan.thuctap.Activity.Admin.AdminActivity;
 import com.example.thuan.thuctap.Activity.Shipper.ShipperActivity;
-import com.example.thuan.thuctap.Activity.UserActivity;
+import com.example.thuan.thuctap.Activity.User.UserActivity;
 import com.example.thuan.thuctap.Model.User;
 import com.example.thuan.thuctap.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        checkInternet();
         mAuth=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("user");
@@ -78,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 (prefName, MODE_PRIVATE);
         //tạo đối tượng Editor để lưu thay đổi
         SharedPreferences.Editor editor=pre.edit();
-        boolean bchk=chkSaveInfo.isChecked();
+        boolean bchk = chkSaveInfo.isChecked();
         if(!bchk)
         {
             //xóa mọi lưu trữ trước đó
@@ -113,11 +119,36 @@ public class LoginActivity extends AppCompatActivity {
         }
         chkSaveInfo.setChecked(bchk);
     }
+
+    private void checkInternet() {
+        if (isConnected() == false) {
+            AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
+            alertDialog.setTitle("Thông báo")
+                    .setMessage("Bạn chưa kết nối mạng !!!")
+                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    })
+                    .show();
+        } else {
+            mdToast = MDToast.makeText(LoginActivity.this, "Đã kết nối mạng ", 5000, MDToast.TYPE_SUCCESS);
+            mdToast.show();
+        }
+    }
+
+    private boolean isConnected(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnectedOrConnecting())  return true;
+        return false;
+    }
     /**
      * kiem tra da dang nhap user chua
      */
     private void checkLogin(){
-        if (mAuth!=null){
+        if (mAuth != null){
 //            mdToast = MDToast.makeText(LoginActivity.this, "Name "+mAuth.getCurrentUser().getEmail(), 5000, MDToast.TYPE_ERROR);
 //            mdToast.show();
             transAdmin();
@@ -190,16 +221,19 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void transAdmin(){
         Intent intent=new Intent(LoginActivity.this, AdminActivity.class);
+        finish();
         startActivity(intent);
     }
 
     private void transUser(){
         Intent intent=new Intent(LoginActivity.this, UserActivity.class);
+        finish();
         startActivity(intent);
     }
 
     private void transShipper(){
         Intent intent=new Intent(LoginActivity.this, ShipperActivity.class);
+        finish();
         startActivity(intent);
     }
 

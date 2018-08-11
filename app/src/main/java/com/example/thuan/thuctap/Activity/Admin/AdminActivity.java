@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.thuan.thuctap.Activity.Login.LoginActivity;
+import com.example.thuan.thuctap.Activity.Shipper.ShipperActivity;
 import com.example.thuan.thuctap.Adapter.Admin.AdminAdapter;
 import com.example.thuan.thuctap.Model.Store;
 import com.example.thuan.thuctap.R;
@@ -78,13 +79,18 @@ public class AdminActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menuLogOut:
-                Intent intentLogOut=new Intent(AdminActivity.this,LoginActivity.class);
+                Intent intentLogin = new Intent(AdminActivity.this, LoginActivity.class);
                 mAuth.signOut();
-                startActivity(intentLogOut);
+                finish();
+                startActivity(intentLogin);
                 return true;
             case R.id.menuPost:
                 Intent intentPost=new Intent(AdminActivity.this,PostStoreActivity.class);
                 startActivity(intentPost);
+                return true;
+            case R.id.menuRevenue:
+                Intent intentRevenue=new Intent(AdminActivity.this,StatisticalActivity.class);
+                startActivity(intentRevenue);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -97,10 +103,10 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void getData(){
-        mAuth= FirebaseAuth.getInstance();
-        mUser=mAuth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
 //        nameUser=mUser.getDisplayName();
-        idUser=mUser.getUid();
+        idUser = mUser.getUid();
         readDatạ();
     }
     private void setData(){
@@ -160,8 +166,8 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                Toast.makeText(AdminActivity.this, ""+arrStore.get(i).getNameStore(), Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(AdminActivity.this, DetailStoreAdminActivity.class);
-                Bundle bundle=new Bundle();
+                Intent intent = new Intent(AdminActivity.this, DetailStoreAdminActivity.class);
+                Bundle bundle = new Bundle();
                 bundle.putString("idStore",arrStore.get(i).getId());
                 intent.putExtra("admin",bundle);
                 startActivity(intent);

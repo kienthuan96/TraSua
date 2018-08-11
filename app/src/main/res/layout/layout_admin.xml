@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:padding="4dp"
+        android:background="@drawable/custom_edittext_login"
         android:layout_width="match_parent"
         android:layout_height="96dp"
         android:orientation="horizontal"
@@ -17,21 +20,29 @@
             android:layout_weight="1" />
 
         <LinearLayout
+            android:weightSum="3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
+                android:gravity="center_horizontal"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 android:id="@+id/txtNameStore_admin"
+                android:layout_weight="2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:hint="Ten Store" />
 
             <TextView
+                android:layout_marginRight="20dp"
+                android:drawableLeft="@drawable/ic_location_on_black_24dp"
                 android:id="@+id/txtAddressStore_admin"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:hint="Dia chi Store" />
         </LinearLayout>
     </LinearLayout>

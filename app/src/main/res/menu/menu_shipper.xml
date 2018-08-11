@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="LogOut"
+        app:showAsAction="always"
+        android:id="@+id/menuLogOut"
+        android:icon="@drawable/ic_undo_black_24dp"
+        ></item>
+
+    <item
+        android:title="Lich Su"
+        app:showAsAction="ifRoom"
+        android:id="@+id/menuHistoryRegisterOrder"
+        ></item>
+
+    <item
+        android:title="Xep Hang"
+        app:showAsAction="ifRoom"
+        android:id="@+id/menuRating"
+        ></item>
+
+</menu>

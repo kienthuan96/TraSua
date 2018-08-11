@@ -1,6 +1,7 @@
 package com.example.thuan.thuctap.Activity.Admin;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +16,8 @@ import com.bumptech.glide.Glide;
 import com.example.thuan.thuctap.Model.Store;
 import com.example.thuan.thuctap.R;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,8 +27,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Calendar;
 
 public class EditStoreActivity extends AppCompatActivity {
     private EditText edtNameStore;
@@ -45,6 +51,7 @@ public class EditStoreActivity extends AppCompatActivity {
     private int PICK_IMAGE = 1;
     private String idStore;
     private Store store;
+    private String nameImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,20 @@ public class EditStoreActivity extends AppCompatActivity {
         getId();
         setData();
         event();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK){
+            try {
+                inputStream = EditStoreActivity.this.getContentResolver().openInputStream(data.getData());
+                uri = data.getData();
+                imgStore.setImageBitmap(BitmapFactory.decodeStream(inputStream));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void getId(){
@@ -78,19 +99,27 @@ public class EditStoreActivity extends AppCompatActivity {
     }
 
     private void readData(){
-        store=new Store();
-        mDatabase=FirebaseDatabase.getInstance();
-        myRef=mDatabase.getReference("store");
+        store = new Store();
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference("store");
         myRef.child(idStore).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                store=dataSnapshot.getValue(Store.class);
+                store = dataSnapshot.getValue(Store.class);
                 edtNameStore.setText(store.getNameStore());
                 edtAddressStore.setText(store.getAddress());
                 edtNumberStore.setText(store.getNumberPhone());
 
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReference();
                 StorageReference pathReference = storageRef.child("IMG_CONTACT/"+store.getImageStore());
-                Glide.with(EditStoreActivity.this).using(new FirebaseImageLoader()).load(pathReference).into(imgStore);
+                pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String imageURL = uri.toString();
+                        Glide.with(EditStoreActivity.this).load(imageURL).into(imgStore);
+                    }
+                });
             }
 
             @Override
@@ -105,6 +134,7 @@ public class EditStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveEdit();
+                transAdmin();
             }
         });
 
@@ -119,10 +149,34 @@ public class EditStoreActivity extends AppCompatActivity {
         });
     }
 
+    public String uploadIMG(Uri uri){
+        Calendar calendar = Calendar.getInstance();
+        nameImage = calendar.getTimeInMillis()+"";
+
+        StorageReference filepath = storageRef.child("IMG_CONTACT").child(nameImage);
+        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(EditStoreActivity.this,"Thêm Thành Công !!!" , Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(EditStoreActivity.this,"Thêm Thất Bại !!!" , Toast.LENGTH_SHORT).show();
+            }
+        });
+        return nameImage;
+    }
+
+    private void transAdmin() {
+        Intent intent = new Intent(EditStoreActivity.this, AdminActivity.class);
+        startActivity(intent);
+    }
+
     private void saveEdit(){
-        final String nameEdit=edtNameStore.getText().toString();
-        final String addressEdit=edtAddressStore.getText().toString();
-        final String numberEdit=edtNumberStore.getText().toString();
+        final String nameEdit = edtNameStore.getText().toString();
+        final String addressEdit = edtAddressStore.getText().toString();
+        final String numberEdit = edtNumberStore.getText().toString();
 
         myRef.child(idStore).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -131,6 +185,8 @@ public class EditStoreActivity extends AppCompatActivity {
                     dataSnapshot.getRef().child("nameStore").setValue(nameEdit);
                     dataSnapshot.getRef().child("address").setValue(addressEdit);
                     dataSnapshot.getRef().child("numberPhone").setValue(numberEdit);
+                    dataSnapshot.getRef().child("imageMilkTea").setValue(uploadIMG(uri));
+//                    uploadIMG(uri);
                     Toast.makeText(EditStoreActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
                     e.printStackTrace();

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="5dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@drawable/custom_edittext_login"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:paddingTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtNameUserOrder_shipper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ten nguoi dat hang" />
+
+            <TextView
+                android:paddingRight="15dp"
+                android:id="@+id/txtDateOrder_shipper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="Ngay dat hang" />
+        </LinearLayout>
+
+
+        <TextView
+            android:paddingRight="15dp"
+            android:id="@+id/txtAddressOrder_shipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dia chi giao hang" />
+
+        <TextView
+            android:drawableRight="@drawable/ic_attach_money_black_24dp"
+            android:paddingRight="15dp"
+            android:gravity="right"
+            android:id="@+id/txtPriceOrder_shipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gia tien"
+            android:textColor="#EF5350" />
+    </LinearLayout>
+
+
+
+</LinearLayout>
