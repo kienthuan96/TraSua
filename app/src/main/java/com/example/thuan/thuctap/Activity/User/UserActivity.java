@@ -110,8 +110,10 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 MilkTea milkTea = dataSnapshot.getValue(MilkTea.class);
-                arrayListMilkTea.add(milkTea);
-                userAdapter.notifyDataSetChanged();
+                if (milkTea.getStatus().equals("Sell")) {
+                    arrayListMilkTea.add(milkTea);
+                    userAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override

@@ -8,18 +8,26 @@
     android:background="#81C784"
     tools:context=".Activity.Admin.MilkTeaActivity">
 
-    <ImageView
-        android:src="@drawable/ic_store_black_24dp"
-        android:layout_width="150dp"
-        android:layout_height="150dp" />
-    <TextView
-        android:gravity="center_horizontal"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:id="@+id/txtNameMilkTea_milkTea"
-        android:text="Ten tra sua"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgMilkTea_milkTea"
+            android:src="@drawable/ic_store_black_24dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+        <TextView
+            android:gravity="center_horizontal"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:id="@+id/txtNameMilkTea_milkTea"
+            android:text="Ten tra sua"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
 
     <TextView
         android:drawableLeft="@drawable/ic_attach_money_black_24dp"
@@ -38,6 +46,10 @@
         android:id="@+id/txtDescription_milkTea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Spinner
+        android:id="@+id/spnStatusMilkTea_milkTea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Spinner>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
