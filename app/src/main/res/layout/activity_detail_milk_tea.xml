@@ -34,7 +34,6 @@
         android:layout_height="wrap_content" />
 
     <EditText
-
         android:id="@+id/edtAmountMilkTea_detailMilkTea"
         android:inputType="number"
         android:layout_width="50dp"

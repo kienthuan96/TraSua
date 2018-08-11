@@ -1,6 +1,7 @@
 package com.example.thuan.thuctap.Adapter.User;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.thuan.thuctap.Activity.User.UserActivity;
 import com.example.thuan.thuctap.Model.DetailOrder;
 import com.example.thuan.thuctap.Model.MilkTea;
 import com.example.thuan.thuctap.Model.Order;
@@ -102,6 +104,8 @@ public class OrderAdapter extends ArrayAdapter<DetailOrder>{
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(context, "Sucess", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(context, UserActivity.class);
+                                context.startActivity(intent);
                                 notifyDataSetChanged();
                             }
                         })

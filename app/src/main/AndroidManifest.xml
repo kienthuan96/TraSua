@@ -33,7 +33,6 @@
         <activity android:name=".Activity.Admin.DetailStoreAdminActivity" />
         <activity android:name=".Activity.Admin.EditStoreActivity" />
         <activity android:name=".Activity.Admin.PostMilkTeaActivity" />
-        <activity android:name=".FirstDisplayActivity" />
         <activity android:name=".Activity.Admin.MilkTeaActivity" />
         <activity android:name=".Activity.User.UserActivity" />
         <activity android:name=".Activity.Shipper.ShipperActivity" />
@@ -43,7 +42,8 @@
         <activity android:name=".Activity.Shipper.HistoryRegisterOrderActivity" />
         <activity android:name=".Activity.User.HistoryOrderActivity" />
         <activity android:name=".Activity.User.EditUserActivity" />
-        <activity android:name=".Activity.Shipper.RatingShipperActivity" />
+        <activity android:name=".Activity.Shipper.RatingShipperActivity"
+            android:theme="@style/AppThemeNoActionBar"/>
         <activity android:name=".Activity.Admin.StatisticalActivity" />
         <activity android:name=".Activity.User.RatingUserActivity"></activity>
     </application>

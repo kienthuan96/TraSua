@@ -37,6 +37,7 @@ public class DetailMilkTeaActivity extends AppCompatActivity {
     private TextView txtNameMilkTea;
     private TextView txtNameStoreMilkTea;
     private TextView txtPriceMilkTea;
+    private TextView txtDesMilkTea;
     private MDToast mdToast;
 
     private FirebaseAuth mAuth;
@@ -59,7 +60,7 @@ public class DetailMilkTeaActivity extends AppCompatActivity {
         txtNameMilkTea = findViewById(R.id.txtNameMilkTea_detailMilkTea);
         txtNameStoreMilkTea = findViewById(R.id.txtStoreMilkTea_detailMilkTea);
         txtPriceMilkTea = findViewById(R.id.txtPriceMilkTea_detailMilkTea);
-
+        txtDesMilkTea = findViewById(R.id.txtDecriptionMilkTea_detailMilkTea);
     }
 
     private void getData() {
@@ -81,6 +82,7 @@ public class DetailMilkTeaActivity extends AppCompatActivity {
                 milkTea = dataSnapshot.getValue(MilkTea.class);
                 txtNameMilkTea.setText(milkTea.getNameMilkTea());
                 txtPriceMilkTea.setText(milkTea.getPrice());
+                txtDesMilkTea.setText(milkTea.getDescription());
                 myRefStore.child(milkTea.getIdStore()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
