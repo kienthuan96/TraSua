@@ -1,15 +1,19 @@
 package com.example.thuan.thuctap.Activity.User;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.thuan.thuctap.Activity.Admin.MilkTeaActivity;
 import com.example.thuan.thuctap.Activity.Login.RegisterActivity;
 import com.example.thuan.thuctap.Model.DetailOrder;
 import com.example.thuan.thuctap.Model.MilkTea;
@@ -24,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.security.PrivilegedAction;
@@ -39,6 +45,7 @@ public class DetailMilkTeaActivity extends AppCompatActivity {
     private TextView txtPriceMilkTea;
     private TextView txtDesMilkTea;
     private MDToast mdToast;
+    private ImageView imgMilkTea;
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -61,6 +68,7 @@ public class DetailMilkTeaActivity extends AppCompatActivity {
         txtNameStoreMilkTea = findViewById(R.id.txtStoreMilkTea_detailMilkTea);
         txtPriceMilkTea = findViewById(R.id.txtPriceMilkTea_detailMilkTea);
         txtDesMilkTea = findViewById(R.id.txtDecriptionMilkTea_detailMilkTea);
+        imgMilkTea = findViewById(R.id.imgMilkTea_detailMilkTea);
     }
 
     private void getData() {
@@ -93,6 +101,17 @@ public class DetailMilkTeaActivity extends AppCompatActivity {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                    }
+                });
+
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReference();
+                StorageReference pathReference = storageRef.child("IMG_CONTACT/" + milkTea.getImageMilkTea());
+                pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String imageURL = uri.toString();
+                        Glide.with(DetailMilkTeaActivity.this).load(imageURL).into(imgMilkTea);
                     }
                 });
             }
