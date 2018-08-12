@@ -50,18 +50,21 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"></ListView>
     <LinearLayout
+        android:weightSum="2"
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:layout_weight="1"
             android:id="@+id/btnDeleteStore_detailAdmin"
-            android:text="Xoa"
-            android:layout_width="wrap_content"
+            android:text="Xóa Cửa Hàng"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <Button
+            android:layout_weight="1"
             android:id="@+id/btnEditStore_detailAdmin"
-            android:text="Sua"
-            android:layout_width="wrap_content"
+            android:text="Sửa Thông tin"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
 

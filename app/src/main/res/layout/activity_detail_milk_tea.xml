@@ -83,7 +83,7 @@
         android:weightSum="2"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="26dp">
+        android:layout_height="wrap_content">
         <EditText
             android:textSize="15dp"
             android:hint="Số lượng"
