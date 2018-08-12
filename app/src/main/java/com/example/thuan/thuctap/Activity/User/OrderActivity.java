@@ -181,17 +181,51 @@ public class OrderActivity extends AppCompatActivity {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(OrderActivity.this, "Gia "+price, Toast.LENGTH_SHORT).show();
                 if (voucher.equals("30.000")) {
                     price = Math.abs(price - 30000);
+                    myRefUser.child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+                            dataSnapshot.getRef().child("point").setValue(user.getPoint() - 20);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
                 if (voucher.equals("50.000")) {
                     price = Math.abs(price - 50000);
+                    myRefUser.child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+                            dataSnapshot.getRef().child("point").setValue(user.getPoint() - 50);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
                 if (voucher.equals("150.000")) {
                     price = Math.abs(price - 150000);
+                    myRefUser.child(idUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+                            dataSnapshot.getRef().child("point").setValue(user.getPoint() - 100);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
-                Toast.makeText(OrderActivity.this, "Gia change"+price, Toast.LENGTH_SHORT).show();
                 Order order = new Order();
                 order.setId(idOrder);
                 order.setArrayList(arrayList);
@@ -203,6 +237,7 @@ public class OrderActivity extends AppCompatActivity {
                 order.setPointOrder(point);
                 order.setRate(3);
                 order.setStatus("Ready"); //Ready Proccess Done
+
                 myRefOrder.child(order.getId()).setValue(order)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -232,7 +267,6 @@ public class OrderActivity extends AppCompatActivity {
         Long price = 0L;
         for (int i = 0; i < arrayList.size(); i++ ) {
             price += arrayList.get(i).getPriceMilkTea();
-            Toast.makeText(this, ""+price, Toast.LENGTH_SHORT).show();
         }
         return price;
     }
