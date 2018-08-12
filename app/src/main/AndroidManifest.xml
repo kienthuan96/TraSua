@@ -15,15 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.SplashActivity" />
-        <activity
-            android:name=".Activity.Login.LoginActivity"
+        <activity android:name=".Activity.Splash.SplashActivity"
             android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.Login.LoginActivity"
+            android:theme="@style/AppThemeNoActionBar">
         </activity>
         <activity
             android:name=".Activity.Login.RegisterActivity"

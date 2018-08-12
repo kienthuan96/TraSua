@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.thuan.thuctap.Activity.Shipper.ShipperActivity;
+import com.example.thuan.thuctap.Activity.User.HistoryOrderActivity;
 import com.example.thuan.thuctap.Model.Order;
 import com.example.thuan.thuctap.Model.User;
 import com.example.thuan.thuctap.R;
@@ -58,6 +59,10 @@ public class HistoryRegisterOrderAdapter extends ArrayAdapter<Order>{
         txtPriceOrder.setText(String.format("%,d", order.getPriceOrder()));
         txtDateOrder.setText(order.getDateOrder().toString());
         txtStatusOrder.setText(order.getStatus());
+
+        if (order.getStatus().equals("Done")) {
+            btnDeleteOrder.setVisibility(View.GONE);
+        }
 
         mDatabase = FirebaseDatabase.getInstance();
         myRefOrder = mDatabase.getReference("order");

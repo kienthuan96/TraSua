@@ -148,11 +148,11 @@ public class LoginActivity extends AppCompatActivity {
      * kiem tra da dang nhap user chua
      */
     private void checkLogin(){
-        if (mAuth != null){
-//            mdToast = MDToast.makeText(LoginActivity.this, "Name "+mAuth.getCurrentUser().getEmail(), 5000, MDToast.TYPE_ERROR);
-//            mdToast.show();
-            transAdmin();
-        }else{
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            mdToast = MDToast.makeText(LoginActivity.this, "Name "+mAuth.getCurrentUser().getEmail(), 5000, MDToast.TYPE_ERROR);
+            mdToast.show();
+//            transAdmin();
+        }else {
             mdToast = MDToast.makeText(LoginActivity.this, "null ", 5000, MDToast.TYPE_WARNING);
             mdToast.show();
         }
@@ -168,8 +168,8 @@ public class LoginActivity extends AppCompatActivity {
         chkSaveInfo=findViewById(R.id.chkSaveInfo_login);
     }
     private void getData(){
-        account=edtAccount.getText().toString();
-        password=edtPassword.getText().toString();
+        account = edtAccount.getText().toString();
+        password = edtPassword.getText().toString();
     }
 
     /**
@@ -212,7 +212,7 @@ public class LoginActivity extends AppCompatActivity {
      * chuyen den activity Register
      */
     private void transRegister(){
-        Intent intent=new Intent(LoginActivity.this, RegisterActivity.class);
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 
@@ -220,19 +220,19 @@ public class LoginActivity extends AppCompatActivity {
      * chuyen den activity Admin
      */
     private void transAdmin(){
-        Intent intent=new Intent(LoginActivity.this, AdminActivity.class);
+        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
         finish();
         startActivity(intent);
     }
 
     private void transUser(){
-        Intent intent=new Intent(LoginActivity.this, UserActivity.class);
+        Intent intent = new Intent(LoginActivity.this, UserActivity.class);
         finish();
         startActivity(intent);
     }
 
     private void transShipper(){
-        Intent intent=new Intent(LoginActivity.this, ShipperActivity.class);
+        Intent intent = new Intent(LoginActivity.this, ShipperActivity.class);
         finish();
         startActivity(intent);
     }
