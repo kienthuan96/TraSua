@@ -5,13 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#81C784"
     tools:context=".Activity.User.OrderActivity">
 
-    <TextView
-        android:id="@+id/txtNameUser_order"
-        android:text="Ten khach hang"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:text="Tên người đặt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/txtNameUser_order"
+            android:text="Ten khach hang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/edtAddressOrder_order"
@@ -33,7 +47,7 @@
         <Button
             android:layout_weight="1"
             android:id="@+id/btnOrder_order"
-            android:text="Dat hang"
+            android:text="Đặt hàng"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Spinner

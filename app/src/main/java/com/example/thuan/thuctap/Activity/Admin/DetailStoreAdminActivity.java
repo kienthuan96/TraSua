@@ -2,6 +2,7 @@ package com.example.thuan.thuctap.Activity.Admin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.thuan.thuctap.Activity.Login.LoginActivity;
+import com.example.thuan.thuctap.Activity.Login.RegisterActivity;
 import com.example.thuan.thuctap.Adapter.Admin.DetailStoreAdapter;
 import com.example.thuan.thuctap.Model.MilkTea;
 import com.example.thuan.thuctap.Model.Store;
@@ -31,6 +35,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
 
@@ -40,8 +47,10 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
     private TextView txtNumberPhoneDetailStore;
     private Button btnDeleteStore,btnEditStore, btnAddMilkTea;
     private ListView lstDetailStore;
+    private ImageView imgStore;
     private ProgressDialog progressDialog;
     private DetailStoreAdapter adapter;
+    private MDToast mdToast;
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -93,6 +102,7 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
         btnDeleteStore = findViewById(R.id.btnDeleteStore_detailAdmin);
         btnEditStore = findViewById(R.id.btnEditStore_detailAdmin);
         lstDetailStore = findViewById(R.id.lstDetailStore_detailAdmin);
+        imgStore = findViewById(R.id.imgStore_detailAdmin);
     }
 
     private void setData(){
@@ -102,10 +112,10 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
     }
 
     private void getData(){
-        mAuth= FirebaseAuth.getInstance();
-        mUser=mAuth.getCurrentUser();
-        nameUser=mUser.getDisplayName();
-        idUser=mUser.getUid();
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        nameUser = mUser.getDisplayName();
+        idUser = mUser.getUid();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("admin");
@@ -126,47 +136,62 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 store = dataSnapshot.getValue(Store.class);
-                txtNameDetailStore.setText(store.getNameStore());
-                txtAddressDetailStore.setText(store.getAddress());
-                txtNumberPhoneDetailStore.setText(store.getNumberPhone());
+                if (dataSnapshot.exists()) {
+                    txtNameDetailStore.setText(store.getNameStore());
+                    txtAddressDetailStore.setText(store.getAddress());
+                    txtNumberPhoneDetailStore.setText(store.getNumberPhone());
 
-                myRefMilkTea.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        MilkTea milkTea = dataSnapshot.getValue(MilkTea.class);
-                        if (milkTea.getIdStore().equals(idStore)) {
-                            arrayList.add(milkTea);
-                            adapter.notifyDataSetChanged();
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference storageRef = storage.getReference();
+                    StorageReference pathReference = storageRef.child("IMG_CONTACT/" + store.getImageStore());
+                    pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String imageURL = uri.toString();
+                            Glide.with(DetailStoreAdminActivity.this).load(imageURL).into(imgStore);
                         }
-                    }
+                    });
 
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    myRefMilkTea.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                            MilkTea milkTea = dataSnapshot.getValue(MilkTea.class);
+                            if (milkTea.getIdStore().equals(idStore)) {
+                                arrayList.add(milkTea);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
 
-                    }
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                        }
 
-                    }
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        }
 
-                    }
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
 
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Intent intent = new Intent(DetailStoreAdminActivity.this, AdminActivity.class);
                 startActivity(intent);
-                Toast.makeText(DetailStoreAdminActivity.this, "Khong thanh cong", Toast.LENGTH_SHORT).show();
+                mdToast = MDToast.makeText(DetailStoreAdminActivity.this, "Lấy dữ liệu không thành công ", 5000, MDToast.TYPE_ERROR);
+                mdToast.show();
             }
         });
     }
@@ -175,18 +200,19 @@ public class DetailStoreAdminActivity extends AppCompatActivity {
         btnDeleteStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myRef = mDatabase.getReference("store");
                 myRef.child(idStore).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(DetailStoreAdminActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(DetailStoreAdminActivity.this,AdminActivity.class);
+                        Intent intent = new Intent(DetailStoreAdminActivity.this,AdminActivity.class);
                         startActivity(intent);
+                        mdToast = MDToast.makeText(DetailStoreAdminActivity.this, "Xóa thành công ", 5000, MDToast.TYPE_SUCCESS);
+                        mdToast.show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(DetailStoreAdminActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                        mdToast = MDToast.makeText(DetailStoreAdminActivity.this, "Xóa không thành công ", 5000, MDToast.TYPE_ERROR);
+                        mdToast.show();
                     }
                 });
 

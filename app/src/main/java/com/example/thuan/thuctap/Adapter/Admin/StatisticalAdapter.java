@@ -36,7 +36,7 @@ public class StatisticalAdapter extends ArrayAdapter<DetailOrder> {
     private ArrayList<DetailOrder> arrayList;
 
     private FirebaseDatabase mDatabase;
-    private DatabaseReference myRefUser, myRefMilkTea, myRefOrder;
+    private DatabaseReference myRefUser, myRefMilkTea, myRefOrder, myRefStore;
 
     public StatisticalAdapter(@NonNull Context context, int resource, @NonNull ArrayList<DetailOrder> objects) {
         super(context, resource, objects);
@@ -56,16 +56,30 @@ public class StatisticalAdapter extends ArrayAdapter<DetailOrder> {
         TextView txtAmount = convertView.findViewById(R.id.txtAmount_statistical);
         TextView txtPrice = convertView.findViewById(R.id.txtPrice_statistical);
         TextView txtTotal = convertView.findViewById(R.id.txtTotal_statistical);
+        final TextView txtNameStore = convertView.findViewById(R.id.txtNameStore_statistical);
 
         DetailOrder detailOrder = arrayList.get(position);
 
         mDatabase = FirebaseDatabase.getInstance();
+        myRefStore = mDatabase.getReference("store");
         myRefMilkTea = mDatabase.getReference("milkTea");
         myRefMilkTea.child(detailOrder.getIdMilkTea()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 MilkTea milkTea = dataSnapshot.getValue(MilkTea.class);
                 txtNameMilkTea.setText(milkTea.getNameMilkTea());
+                myRefStore.child(milkTea.getIdStore()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Store store = dataSnapshot.getValue(Store.class);
+                        txtNameStore.setText(store.getNameStore());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override

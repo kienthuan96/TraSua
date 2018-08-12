@@ -18,17 +18,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <info.hoang8f.widget.FButton
+            app:buttonColor="#7986CB"
             android:id="@+id/btnSearch_statistical"
             android:layout_weight="1"
             android:text="Tra"
             android:layout_width="0dp"
             android:layout_height="match_parent" />
-        <!--<Button-->
-            <!--android:id="@+id/btnSearch_statistical"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="Tim"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content" />-->
     </LinearLayout>
     <LinearLayout
         android:weightSum="4"
