@@ -2,19 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#81C784"
+    android:background="@color/background_login"
     android:padding="5px"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.Login.LoginActivity">
 
     <RelativeLayout
-        android:layout_width="374dp"
-        android:layout_height="394dp"
+        android:layout_width="@dimen/relative_width_login"
+        android:layout_height="@dimen/relative_height_login"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="107dp">
+        android:layout_marginStart="@dimen/relative_margin_start_login"
+        android:layout_marginTop="@dimen/relative_margin_top_login">
         <!-- Email Label -->
 
 
@@ -24,13 +24,13 @@
             android:drawableLeft="@drawable/ic_account_circle_white_24dp"
             android:singleLine="true"
             android:gravity="center"
-            android:layout_marginLeft="5dp"
-            android:textSize="23sp"
-            android:hint="Input your account ..."
-            android:textColor="#FFFFFF"
+            android:layout_marginLeft="@dimen/edit_text_account_margin_left_login"
+            android:textSize="@dimen/edit_text_account_text_size_login"
+            android:hint="@string/text_input_account_login"
+            android:textColor="@color/color_text_login"
             android:id="@+id/edtAccount_login"
-            android:layout_marginTop="90dp"
-            android:padding="5dp"
+            android:layout_marginTop="@dimen/edit_text_account_margin_top_login"
+            android:padding="@dimen/edit_text_account_padding_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
@@ -40,13 +40,13 @@
             android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
             android:singleLine="true"
             android:gravity="center"
-            android:layout_marginLeft="5dp"
-            android:textSize="23sp"
-            android:hint="Input your password"
-            android:textColor="#FFF"
+            android:layout_marginLeft="@dimen/edit_text_password_margin_left_login"
+            android:textSize="@dimen/edit_text_password_text_size_login"
+            android:hint="@string/text_input_password_login"
+            android:textColor="@color/color_text_login"
             android:id="@+id/edtPassword_login"
-            android:layout_marginTop="180dp"
-            android:padding="9dp"
+            android:layout_marginTop="@dimen/edit_text_password_margin_top_login"
+            android:padding="@dimen/edit_text_password_padding_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -54,27 +54,27 @@
 
         <com.hanks.library.AnimateCheckBox
             android:id="@+id/chkSaveInfo_login"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/check_box_width_login"
+            android:layout_height="@dimen/check_box_height_login"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="122dp"
-            android:padding="15dp"
+            android:layout_marginBottom="@dimen/check_box_margin_bottom_login"
+            android:padding="@dimen/check_box_padding_login"
             app:animDuration="200"
-            app:checkedColor="#fff"
-            app:lineColor="#81C784"
+            app:checkedColor="@color/white"
+            app:lineColor="@color/background_login"
             app:lineWidth="1.2dp"
-            app:unCheckColor="#448AFF" />
+            app:unCheckColor="@color/uncheck_checkbox_login" />
 
         <TextView
-            android:textColor="#FFFF"
+            android:textColor="@color/color_text_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="138dp"
-            android:layout_marginStart="41dp"
-            android:text="Lưu thông tin" />
+            android:layout_marginBottom="@dimen/text_view_save_margin_bottom_login"
+            android:layout_marginStart="@dimen/text_view_save_margin_start_login"
+            android:text="@string/text_check_save_info_login" />
 
 
 
@@ -84,14 +84,14 @@
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/txtRegister_login"
             android:layout_centerHorizontal="true"
-            android:text="Login"
+            android:text="@string/text_button_login"
             android:textStyle="bold"
-            android:textColor="#81C784"
-            app:sub_btn_background="#FFFF"
+            android:textColor="@color/background_login"
+            app:sub_btn_background="@color/white"
             app:sub_btn_duration="900"
-            app:sub_btn_line_color="#FFB74D"
-            app:sub_btn_ripple_color="#FFB74D"
-            app:sub_btn_tick_color="#FFFF" />
+            app:sub_btn_line_color="@color/line_color_button_login"
+            app:sub_btn_ripple_color="@color/ripple_color_button_login"
+            app:sub_btn_tick_color="@color/white" />
 
         <TextView
             android:id="@+id/txtRegister_login"
@@ -100,11 +100,11 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center"
-            android:layout_marginBottom="11dp"
+            android:layout_marginBottom="@dimen/text_view_register_margin_bottom_login"
             android:gravity="center"
-            android:text="No account yet? Create one"
-            android:textColor="#FFFF"
-            android:textSize="16dip" />
+            android:text="@string/text_register_login"
+            android:textColor="@color/color_text_login"
+            android:textSize="@dimen/text_view_register_text_size_login" />
     </RelativeLayout>
 
 </RelativeLayout>

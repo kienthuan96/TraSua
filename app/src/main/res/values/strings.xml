@@ -14,4 +14,28 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!--login screen-->
+    <string name="text_input_account_login">Input your account ...</string>
+    <string name="text_input_password_login">Input your password</string>
+    <string name="text_check_save_info_login">save</string>
+    <string name="text_button_login">Login</string>
+    <string name="text_register_login">No account yet? Create one</string>
+    <string name="text_title_error_internet_login">Warring !!!</string>
+    <string name="text_content_error_internet_login">No internet</string>
+    <string name="text_button_error_internet_button">OK</string>
+    <string name="text_content_success_internet_login">Have Internet</string>
+    <string name="text_error_input_account_login">Please input account</string>
+    <string name="text_error_input_password_login">Please input password</string>
+    <string name="text_log_in_error_login">Authentication failed.</string>
+    <string name="text_content_dialog_login">Loading...</string>
+
+    <!--register screen-->
+    <string name="text_title_register">Register Account</string>
+    <string name="text_input_account_register">Input your account</string>
+    <string name="text_input_name_register">Input your name</string>
+    <string name="text_input_password_register">Input your password</string>
+    <string name="text_input_number_register">Input your number phone</string>
+    <string name="text_button_register">Register</string>
+
 </resources>

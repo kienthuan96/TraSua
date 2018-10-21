@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thuan.thuctap.Activity.Admin.AdminActivity;
+import com.example.thuan.thuctap.Activity.BossActivity;
+import com.example.thuan.thuctap.Activity.Common.Validator;
 import com.example.thuan.thuctap.Activity.Shipper.ShipperActivity;
 import com.example.thuan.thuctap.Activity.User.UserActivity;
 import com.example.thuan.thuctap.Model.User;
@@ -44,18 +46,26 @@ public class LoginActivity extends AppCompatActivity {
     private AnimateCheckBox chkSaveInfo;
     private MDToast mdToast;
     private ProgressDialog progressDialog;
+    private Validator validator;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-    private String account,password;
-    private String prefName="my_data";
+    private String account;
+    private String password;
+    private String PREFERENCE_NAME = "my_data";
+    private String ACCOUNT_ADMIN = "admin";
+    private String PASSWORD_ADMIN = "admin";
+    private String STATUS_USER = "User";
+    private String STATUS_ADMIN = "Admin";
+    private String STATUS_SHIPPER = "Shipper";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         checkInternet();
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("user");
         getId();
@@ -79,53 +89,56 @@ public class LoginActivity extends AppCompatActivity {
 
     public void savingPreferences()
     {
-        //tạo đối tượng getSharedPreferences
-        SharedPreferences pre=getSharedPreferences
-                (prefName, MODE_PRIVATE);
-        //tạo đối tượng Editor để lưu thay đổi
-        SharedPreferences.Editor editor=pre.edit();
+        //create getSharedPreferences
+        SharedPreferences pre = getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
+        //create Editor to save change
+        SharedPreferences.Editor editor = pre.edit();
         boolean bchk = chkSaveInfo.isChecked();
         if(!bchk)
         {
-            //xóa mọi lưu trữ trước đó
+            //remove save data
             editor.clear();
         }
         else
         {
-            //lưu vào editor
+            //save to editor
             editor.putString("account", account);
             editor.putString("password", password);
             editor.putBoolean("checked", bchk);
         }
-        //chấp nhận lưu xuống file
+        //accept save to file
         editor.commit();
     }
+
     /**
-     * hàm đọc trạng thái đã lưu trước đó
+     * restore data save
      */
     public void restoringPreferences()
     {
-        SharedPreferences pre=getSharedPreferences
-                (prefName,MODE_PRIVATE);
+        SharedPreferences pre = getSharedPreferences
+                (PREFERENCE_NAME, MODE_PRIVATE);
         //lấy giá trị checked ra, nếu không thấy thì giá trị mặc định là false
-        boolean bchk=pre.getBoolean("checked", false);
+        boolean bchk = pre.getBoolean("checked", false);
         if(bchk)
         {
             //lấy user, pwd, nếu không thấy giá trị mặc định là rỗng
-            String user=pre.getString("account", "");
-            String pwd=pre.getString("password", "");
+            String user = pre.getString("account", "");
+            String pwd = pre.getString("password", "");
             edtAccount.setText(user);
             edtPassword.setText(pwd);
         }
         chkSaveInfo.setChecked(bchk);
     }
 
+    /**
+     * check internet
+     */
     private void checkInternet() {
         if (isConnected() == false) {
-            AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
-            alertDialog.setTitle("Thông báo")
-                    .setMessage("Bạn chưa kết nối mạng !!!")
-                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle(R.string.text_title_error_internet_login)
+                    .setMessage(R.string.text_content_error_internet_login)
+                    .setNegativeButton(R.string.text_button_error_internet_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             finish();
@@ -133,23 +146,27 @@ public class LoginActivity extends AppCompatActivity {
                     })
                     .show();
         } else {
-            mdToast = MDToast.makeText(LoginActivity.this, "Đã kết nối mạng ", 5000, MDToast.TYPE_SUCCESS);
+            mdToast = MDToast.makeText(LoginActivity.this,
+                    getString(R.string.text_content_success_internet_login),
+                    5000,
+                    MDToast.TYPE_SUCCESS);
             mdToast.show();
         }
     }
 
-    private boolean isConnected(){
+    private boolean isConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        if(networkInfo != null && networkInfo.isConnectedOrConnecting())  return true;
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting())
+            return true;
         return false;
     }
     /**
-     * kiem tra da dang nhap user chua
+     * check user have login or not
      */
-    private void checkLogin(){
+    private void checkLogin() {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            mdToast = MDToast.makeText(LoginActivity.this, "Name "+mAuth.getCurrentUser().getEmail(), 5000, MDToast.TYPE_ERROR);
+            mdToast = MDToast.makeText(LoginActivity.this, "Name " + mAuth.getCurrentUser().getEmail(), 5000, MDToast.TYPE_ERROR);
             mdToast.show();
 //            transAdmin();
         }else {
@@ -158,50 +175,71 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     /**
-     * lay id
+     * get id
      */
-    private void getId(){
-        edtAccount=findViewById(R.id.edtAccount_login);
-        edtPassword=findViewById(R.id.edtPassword_login);
-        btnSubmit=findViewById(R.id.btnSubmit_login);
-        txtRegister=findViewById(R.id.txtRegister_login);
-        chkSaveInfo=findViewById(R.id.chkSaveInfo_login);
+    private void getId() {
+        edtAccount = findViewById(R.id.edtAccount_login);
+        edtPassword = findViewById(R.id.edtPassword_login);
+        btnSubmit = findViewById(R.id.btnSubmit_login);
+        txtRegister = findViewById(R.id.txtRegister_login);
+        chkSaveInfo = findViewById(R.id.chkSaveInfo_login);
     }
-    private void getData(){
+
+    /**
+     * get data from xml
+     */
+    private void getData() {
         account = edtAccount.getText().toString();
         password = edtPassword.getText().toString();
     }
 
     /**
-     * bat su kien
+     * get event
      */
-    private void getEvent(){
+    private void getEvent() {
         txtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transRegister();
+                changeToRegisterScreen();
             }
         });
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getData();
-                if (checkError()){
-//                    signIn(account,password);
+                if (validatorLogin()){
                     new BackgroundLogin().execute();
                 }
             }
         });
     }
 
-    private boolean checkError(){
-        if (account.length() == 0){
-            mdToast = MDToast.makeText(LoginActivity.this, "Nhap thong tin account ", 5000, MDToast.TYPE_ERROR);
+    /**
+     * check error
+     * @return true or false
+     *
+     */
+    private boolean validatorLogin() {
+        validator = new Validator();
+//        LOGIN_E001
+        if (validator.isBlank(account)){
+            mdToast = MDToast.makeText(
+                    LoginActivity.this,
+                    getString(R.string.text_error_input_account_login),
+                    5000,
+                    MDToast.TYPE_ERROR
+                );
             mdToast.show();
             return false;
         }
-        if (password.length() == 0){
-            mdToast = MDToast.makeText(LoginActivity.this, "Nhap thong tin password ", 5000, MDToast.TYPE_ERROR);
+
+//        LOGIN_E002
+        if (validator.isBlank(password)){
+            mdToast = MDToast.makeText(LoginActivity.this,
+                    getString(R.string.text_error_input_password_login),
+                    5000,
+                    MDToast.TYPE_ERROR
+                );
             mdToast.show();
             return false;
         }
@@ -209,35 +247,54 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * chuyen den activity Register
+     * change from Login screen to Register screen
      */
-    private void transRegister(){
+    private void changeToRegisterScreen() {
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 
     /**
-     * chuyen den activity Admin
+     * change from Login screen to Admin screen
      */
-    private void transAdmin(){
+    private void changeToAdminScreen() {
         Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
         finish();
         startActivity(intent);
     }
 
-    private void transUser(){
+    /**
+     * change from Login screen to User screen
+     */
+    private void changeToUserScreen() {
         Intent intent = new Intent(LoginActivity.this, UserActivity.class);
         finish();
         startActivity(intent);
     }
 
-    private void transShipper(){
+    /**
+     * change from Login screen to Shipper screen
+     */
+    private void changeToShipperScreen() {
         Intent intent = new Intent(LoginActivity.this, ShipperActivity.class);
         finish();
         startActivity(intent);
     }
 
-    private void signIn(String email,String password){
+    /**
+     * change from Login screen to Boss screen
+     */
+    private void changeToBossScreen() {
+        Intent intent = new Intent(LoginActivity.this, BossActivity.class);
+        finish();
+        startActivity(intent);
+    }
+    /**
+     * function sign in
+     * @param email
+     * @param password
+     */
+    private void signIn(String email,String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -249,15 +306,19 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     User user = dataSnapshot.getValue(User.class);
-                                    if (user.getStatus().equals("User")) {
-                                        transUser();
+
+                                    if (user.getStatus().equals(STATUS_USER)) {
+                                        changeToUserScreen();
                                     }
-                                    if (user.getStatus().equals("Admin")) {
-                                        transAdmin();
+
+                                    if (user.getStatus().equals(STATUS_ADMIN)) {
+                                        changeToAdminScreen();
                                     }
-                                    if (user.getStatus().equals("Shipper")) {
-                                        transShipper();
+
+                                    if (user.getStatus().equals(STATUS_SHIPPER)) {
+                                        changeToShipperScreen();
                                     }
+
                                 }
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -266,17 +327,21 @@ public class LoginActivity extends AppCompatActivity {
                             });
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            mdToast = MDToast.makeText(LoginActivity.this, getString(R.string.text_log_in_error_login), 5000, MDToast.TYPE_ERROR);
+                            mdToast.show();
                         }
                     }
                 });
     }
 
-    private class BackgroundLogin extends AsyncTask<Void, Void, Void>{
+    private class BackgroundLogin extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            if (account.equals(ACCOUNT_ADMIN)
+                    && password.equals(PASSWORD_ADMIN)) {
+                changeToBossScreen();
+            }
             signIn(account,password);
             return null;
         }
@@ -289,8 +354,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog=new ProgressDialog(LoginActivity.this);
-            progressDialog.setMessage("Loading...");
+            progressDialog = new ProgressDialog(LoginActivity.this);
+            progressDialog.setMessage(getString(R.string.text_content_dialog_login));
             progressDialog.show();
         }
     }

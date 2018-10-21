@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.Splash.SplashActivity"
+        <activity
+            android:name=".Activity.Splash.SplashActivity"
             android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +26,7 @@
         </activity>
         <activity
             android:name=".Activity.Login.LoginActivity"
-            android:theme="@style/AppThemeNoActionBar">
-        </activity>
+            android:theme="@style/AppThemeNoActionBar"></activity>
         <activity
             android:name=".Activity.Login.RegisterActivity"
             android:theme="@style/AppThemeNoActionBar" />
@@ -44,10 +44,12 @@
         <activity android:name=".Activity.Shipper.HistoryRegisterOrderActivity" />
         <activity android:name=".Activity.User.HistoryOrderActivity" />
         <activity android:name=".Activity.User.EditUserActivity" />
-        <activity android:name=".Activity.Shipper.RatingShipperActivity"
-            android:theme="@style/AppThemeNoActionBar"/>
+        <activity
+            android:name=".Activity.Shipper.RatingShipperActivity"
+            android:theme="@style/AppThemeNoActionBar" />
         <activity android:name=".Activity.Admin.StatisticalActivity" />
-        <activity android:name=".Activity.User.RatingUserActivity"></activity>
+        <activity android:name=".Activity.User.RatingUserActivity" />
+        <activity android:name=".Activity.BossActivity"></activity>
     </application>
 
 </manifest>
