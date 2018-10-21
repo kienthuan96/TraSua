@@ -119,9 +119,9 @@ public class AdminActivity extends AppCompatActivity {
 
     private void readDatạ()
     {
-        arrStore=new ArrayList<>();
-        mDatabase=FirebaseDatabase.getInstance();
-        myRef=mDatabase.getReference("store");
+        arrStore = new ArrayList<>();
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference("store");
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

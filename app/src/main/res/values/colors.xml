@@ -7,4 +7,17 @@
     <color name="colorTextColor">#bb0000</color>
     <color name="colorBackgroundBlueLight">#8181F7</color>
     <color name="colorTextColorWhite">#ffffff</color>
+
+    <!--login screen-->
+    <color name="background_login">#81C784</color>
+    <color name="color_text_login">#FFFFFF</color>
+    <color name="uncheck_checkbox_login">#448AFF</color>
+    <color name="line_color_button_login">#FFB74D</color>
+    <color name="ripple_color_button_login">#FFB74D</color>
+
+    <!--register screen-->
+    <color name="background_register">#81C784</color>
+    <color name="button_register">#E3F2FD</color>
+
+
 </resources>

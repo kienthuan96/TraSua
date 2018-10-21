@@ -3,7 +3,7 @@
     xmlns:float="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#81C784"
+    android:background="@color/background_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.Login.RegisterActivity">
@@ -12,10 +12,10 @@
         android:layout_marginTop="2dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
+        android:textColor="@color/white"
         android:gravity="center"
         android:textSize="40sp"
-        android:text="Register Account"/>
+        android:text="@string/text_title_register"/>
 
     <ImageView
         android:id="@+id/imgAvatar_register"
@@ -54,10 +54,10 @@
                 android:id="@+id/edtAccount_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Input your account"
+                android:hint="@string/text_input_account_register"
                 android:singleLine="true"
-                android:textColor="#fff"
-                android:textColorHint="#fff" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
         <com.wrapp.floatlabelededittext.FloatLabeledEditText
@@ -69,10 +69,10 @@
                 android:id="@+id/edtFullName_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Input your name"
+                android:hint="@string/text_input_name_register"
                 android:singleLine="true"
-                android:textColor="#fff"
-                android:textColorHint="#fff" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
         <com.wrapp.floatlabelededittext.FloatLabeledEditText
@@ -85,10 +85,10 @@
                 android:id="@+id/edtPassword_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Input your password"
+                android:hint="@string/text_input_password_register"
                 android:singleLine="true"
-                android:textColor="#fff"
-                android:textColorHint="#fff" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
         <com.wrapp.floatlabelededittext.FloatLabeledEditText
@@ -101,10 +101,10 @@
                 android:id="@+id/edtRePassword_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Input your password "
+                android:hint="@string/text_input_password_register"
                 android:singleLine="true"
-                android:textColor="#fff"
-                android:textColorHint="#fff" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
         <com.wrapp.floatlabelededittext.FloatLabeledEditText
@@ -116,18 +116,18 @@
                 android:id="@+id/edtPhone_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Số điện thoại "
+                android:hint="@string/text_input_number_register"
                 android:inputType="number"
                 android:singleLine="true"
-                android:textColor="#fff"
-                android:textColorHint="#fff" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
     </LinearLayout>
 
 
     <android.support.v7.widget.AppCompatButton
         android:fontFamily="@font/cucho_bold"
-        android:background="#E3F2FD"
+        android:background="@color/button_register"
         android:id="@+id/btnRegister"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -135,6 +135,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="43dp"
         android:padding="10dp"
-        android:text="Register"
+        android:text="@string/text_button_register"
         android:textSize="22sp" />
 </RelativeLayout>

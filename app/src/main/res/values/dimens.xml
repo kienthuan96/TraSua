@@ -2,4 +2,32 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--login screen-->
+    <dimen name="relative_width_login">374dp</dimen>
+    <dimen name="relative_height_login">394dp</dimen>
+    <dimen name="relative_margin_start_login">0dp</dimen>
+    <dimen name="relative_margin_top_login">107dp</dimen>
+
+    <dimen name="edit_text_account_margin_left_login">5dp</dimen>
+    <dimen name="edit_text_account_text_size_login">23sp</dimen>
+    <dimen name="edit_text_account_margin_top_login">90dp</dimen>
+    <dimen name="edit_text_account_padding_login">5dp</dimen>
+
+    <dimen name="edit_text_password_margin_left_login">5dp</dimen>
+    <dimen name="edit_text_password_text_size_login">23sp</dimen>
+    <dimen name="edit_text_password_margin_top_login">180dp</dimen>
+    <dimen name="edit_text_password_padding_login">9dp</dimen>
+
+    <dimen name="check_box_width_login">50dp</dimen>
+    <dimen name="check_box_height_login">50dp</dimen>
+    <dimen name="check_box_margin_bottom_login">122dp</dimen>
+    <dimen name="check_box_padding_login">15dp</dimen>
+
+    <dimen name="text_view_save_margin_bottom_login">138dp</dimen>
+    <dimen name="text_view_save_margin_start_login">41dp</dimen>
+
+    <dimen name="text_view_register_margin_bottom_login">11dp</dimen>
+    <dimen name="text_view_register_text_size_login">16dp</dimen>
+
 </resources>
